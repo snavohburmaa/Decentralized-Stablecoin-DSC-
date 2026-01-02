@@ -1,0 +1,832 @@
+Compiling 37 files with Solc 0.8.30
+Solc 0.8.30 finished in 2.32s
+Compiler run successful!
+Analysing contracts...
+Running tests...
+
+Ran 13 tests for test/unit/DSCEngineTest.t.sol:DSCEngineTest
+[PASS] testCorrectDepositTokenAmount() (gas: 131540)
+[PASS] testDepositCollateralAndGetAccInfo() (gas: 131513)
+[PASS] testGetTokenAmountFromUsd() (gas: 25300)
+[PASS] testGetTokenLengthNotMatchPriceFeed() (gas: 184648)
+[PASS] testGetUsdValue() (gas: 25212)
+[PASS] testMoreThanZeroModifierAllowsValidAmounts() (gas: 200105)
+[PASS] testRevertIfBurnDscAmountIsZero() (gas: 202877)
+[PASS] testRevertIfCollateralIsZero() (gas: 43315)
+[PASS] testRevertIfDepositCollateralAndMintDscAmountsAreZero() (gas: 43770)
+[PASS] testRevertIfLiquidateDebtToCoverIsZero() (gas: 349658)
+[PASS] testRevertIfMintDscAmountIsZero() (gas: 83952)
+[PASS] testRevertIfRedeemCollateralAmountIsZero() (gas: 84387)
+[PASS] testRevertUnapprovedCollateral() (gas: 926770)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 20.57ms (39.44ms CPU time)
+
+Ran 1 test suite in 859.28ms (20.57ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+script/DeployDSC.s.sol:
+- Line (location: (source ID: 30, lines: 13..31, bytes: 392..1071), hits: 13) -> "function run() external returns ...urn (dsc, engine, config);\n    }"
+- Function "run" (location: (source ID: 30, lines: 13..31, bytes: 392..1071), hits: 13) -> "function run() external returns ...urn (dsc, engine, config);\n    }"
+- Line (location: (source ID: 30, lines: 14..15, bytes: 485..525), hits: 13) -> "HelperConfig config = new HelperConfig()"
+- Statement (location: (source ID: 30, lines: 14..15, bytes: 485..525), hits: 13) -> "HelperConfig config = new HelperConfig()"
+- Statement (location: (source ID: 30, lines: 14..15, bytes: 507..525), hits: 13) -> "new HelperConfig()"
+- Line (location: (source ID: 30, lines: 15..16, bytes: 535..647), hits: 13) -> "(address wethUsdPriceFeed, addre...) = config.activeNetworkConfig()"
+- Statement (location: (source ID: 30, lines: 15..16, bytes: 535..647), hits: 13) -> "(address wethUsdPriceFeed, addre...) = config.activeNetworkConfig()"
+- Statement (location: (source ID: 30, lines: 15..16, bytes: 619..647), hits: 13) -> "config.activeNetworkConfig()"
+- Line (location: (source ID: 30, lines: 17..18, bytes: 658..687), hits: 13) -> "tokenAddresses = [weth, wbtc]"
+- Statement (location: (source ID: 30, lines: 17..18, bytes: 658..687), hits: 13) -> "tokenAddresses = [weth, wbtc]"
+- Line (location: (source ID: 30, lines: 18..19, bytes: 697..754), hits: 13) -> "priceFeedAddresses = [wethUsdPriceFeed, wbtcUsdPriceFeed]"
+- Statement (location: (source ID: 30, lines: 18..19, bytes: 697..754), hits: 13) -> "priceFeedAddresses = [wethUsdPriceFeed, wbtcUsdPriceFeed]"
+- Line (location: (source ID: 30, lines: 20..21, bytes: 765..784), hits: 13) -> "vm.startBroadcast()"
+- Statement (location: (source ID: 30, lines: 20..21, bytes: 765..784), hits: 13) -> "vm.startBroadcast()"
+- Line (location: (source ID: 30, lines: 22..23, bytes: 795..854), hits: 13) -> "DecentralizedStableCoin dsc = new DecentralizedStableCoin()"
+- Statement (location: (source ID: 30, lines: 22..23, bytes: 795..854), hits: 13) -> "DecentralizedStableCoin dsc = new DecentralizedStableCoin()"
+- Statement (location: (source ID: 30, lines: 22..23, bytes: 825..854), hits: 13) -> "new DecentralizedStableCoin()"
+- Line (location: (source ID: 30, lines: 23..24, bytes: 864..947), hits: 13) -> "DSCEngine engine = new DSCEngine...iceFeedAddresses, address(dsc) )"
+- Statement (location: (source ID: 30, lines: 23..24, bytes: 864..947), hits: 13) -> "DSCEngine engine = new DSCEngine...iceFeedAddresses, address(dsc) )"
+- Statement (location: (source ID: 30, lines: 23..24, bytes: 883..947), hits: 13) -> "new DSCEngine(tokenAddresses, priceFeedAddresses, address(dsc) )"
+- Line (location: (source ID: 30, lines: 25..26, bytes: 958..996), hits: 13) -> "dsc.transferOwnership(address(engine))"
+- Statement (location: (source ID: 30, lines: 25..26, bytes: 958..996), hits: 13) -> "dsc.transferOwnership(address(engine))"
+- Line (location: (source ID: 30, lines: 27..28, bytes: 1007..1025), hits: 13) -> "vm.stopBroadcast()"
+- Statement (location: (source ID: 30, lines: 27..28, bytes: 1007..1025), hits: 13) -> "vm.stopBroadcast()"
+- Line (location: (source ID: 30, lines: 29..30, bytes: 1036..1064), hits: 13) -> "return (dsc, engine, config)"
+- Statement (location: (source ID: 30, lines: 29..30, bytes: 1036..1064), hits: 13) -> "return (dsc, engine, config)"
+
+script/HelperConfig.s.sol:
+- Line (location: (source ID: 31, lines: 23..30, bytes: 736..948), hits: 13) -> "constructor() {\n        if(block...nvilEthConfig();\n        }\n    }"
+- Function "constructor" (location: (source ID: 31, lines: 23..30, bytes: 736..948), hits: 13) -> "constructor() {\n        if(block...nvilEthConfig();\n        }\n    }"
+- Line (location: (source ID: 31, lines: 24..25, bytes: 763..788), hits: 13) -> "block.chainid == 11155111"
+- Statement (location: (source ID: 31, lines: 24..25, bytes: 763..788), hits: 13) -> "block.chainid == 11155111"
+- Branch (branch: 0, path: 0) (location: (source ID: 31, lines: 24..27, bytes: 790..862), hits: 0) -> "{\n            activeNetworkConfi...epoliaNetworkConfig();\n        }"
+- Branch (branch: 0, path: 1) (location: (source ID: 31, lines: 24..29, bytes: 760..942), hits: 13) -> "if(block.chainid == 11155111) {\n...reateAnvilEthConfig();\n        }"
+- Line (location: (source ID: 31, lines: 25..26, bytes: 804..851), hits: 0) -> "activeNetworkConfig = getSepoliaNetworkConfig()"
+- Statement (location: (source ID: 31, lines: 25..26, bytes: 804..851), hits: 0) -> "activeNetworkConfig = getSepoliaNetworkConfig()"
+- Line (location: (source ID: 31, lines: 27..28, bytes: 882..931), hits: 13) -> "activeNetworkConfig = getOrCreateAnvilEthConfig()"
+- Statement (location: (source ID: 31, lines: 27..28, bytes: 882..931), hits: 13) -> "activeNetworkConfig = getOrCreateAnvilEthConfig()"
+- Line (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0) -> "function getSepoliaNetworkConfig...\"PRIVATE_KEY\")\n        });\n    }"
+- Function "getSepoliaNetworkConfig" (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0) -> "function getSepoliaNetworkConfig...\"PRIVATE_KEY\")\n        });\n    }"
+- Line (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0) -> "return NetworkConfig({\n         ...nvUint(\"PRIVATE_KEY\")\n        })"
+- Statement (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0) -> "return NetworkConfig({\n         ...nvUint(\"PRIVATE_KEY\")\n        })"
+- Line (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13) -> "function getOrCreateAnvilEthConf...AULT_ANVIL_KEY\n        });\n    }"
+- Function "getOrCreateAnvilEthConfig" (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13) -> "function getOrCreateAnvilEthConf...AULT_ANVIL_KEY\n        });\n    }"
+- Line (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13) -> "activeNetworkConfig.wethUsdPriceFeed != address(0)"
+- Statement (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13) -> "activeNetworkConfig.wethUsdPriceFeed != address(0)"
+- Branch (branch: 1, path: 0) (location: (source ID: 31, lines: 42..45, bytes: 1550..1601), hits: 0) -> "{\n            return activeNetworkConfig;\n        }"
+- Line (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0) -> "return activeNetworkConfig"
+- Statement (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0) -> "return activeNetworkConfig"
+- Line (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13) -> "vm.startBroadcast()"
+- Statement (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13) -> "vm.startBroadcast()"
+- Line (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13) -> "MockV3Aggregator ethUsdPriceFeed...regator(DECIMALS, ETH_USD_PRICE)"
+- Statement (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13) -> "MockV3Aggregator ethUsdPriceFeed...regator(DECIMALS, ETH_USD_PRICE)"
+- Statement (location: (source ID: 31, lines: 48..49, bytes: 1676..1721), hits: 13) -> "new MockV3Aggregator(DECIMALS, ETH_USD_PRICE)"
+- Line (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13) -> "ERC20Mock wethMock = new ERC20Mo...TH\", \"WETH\", msg.sender, 1000e8)"
+- Statement (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13) -> "ERC20Mock wethMock = new ERC20Mo...TH\", \"WETH\", msg.sender, 1000e8)"
+- Statement (location: (source ID: 31, lines: 49..50, bytes: 1752..1801), hits: 13) -> "new ERC20Mock(\"WETH\", \"WETH\", msg.sender, 1000e8)"
+- Line (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13) -> "MockV3Aggregator btcUsdPriceFeed...regator(DECIMALS, BTC_USD_PRICE)"
+- Statement (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13) -> "MockV3Aggregator btcUsdPriceFeed...regator(DECIMALS, BTC_USD_PRICE)"
+- Statement (location: (source ID: 31, lines: 51..52, bytes: 1847..1892), hits: 13) -> "new MockV3Aggregator(DECIMALS, BTC_USD_PRICE)"
+- Line (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13) -> "ERC20Mock wbtcMock = new ERC20Mo...TC\", \"WBTC\", msg.sender, 1000e8)"
+- Statement (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13) -> "ERC20Mock wbtcMock = new ERC20Mo...TC\", \"WBTC\", msg.sender, 1000e8)"
+- Statement (location: (source ID: 31, lines: 52..53, bytes: 1923..1972), hits: 13) -> "new ERC20Mock(\"WBTC\", \"WBTC\", msg.sender, 1000e8)"
+- Line (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13) -> "vm.stopBroadcast()"
+- Statement (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13) -> "vm.stopBroadcast()"
+- Line (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13) -> "return NetworkConfig({\n         ...ey: DEFAULT_ANVIL_KEY\n        })"
+- Statement (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13) -> "return NetworkConfig({\n         ...ey: DEFAULT_ANVIL_KEY\n        })"
+
+src/DSCEngine.sol:
+- Line (location: (source ID: 32, lines: 61..67, bytes: 3123..3265), hits: 1) -> "modifier moreThanZero(uint256 am...ro();\n        }\n        _;\n    }"
+- Function "moreThanZero" (location: (source ID: 32, lines: 61..67, bytes: 3123..3265), hits: 1) -> "modifier moreThanZero(uint256 am...ro();\n        }\n        _;\n    }"
+- Line (location: (source ID: 32, lines: 62..63, bytes: 3174..3185), hits: 1) -> "amount == 0"
+- Statement (location: (source ID: 32, lines: 62..63, bytes: 3174..3185), hits: 1) -> "amount == 0"
+- Branch (branch: 0, path: 0) (location: (source ID: 32, lines: 62..65, bytes: 3187..3248), hits: 1) -> "{\n            revert DSCEngine__NeedMoreThanZero();\n        }"
+- Line (location: (source ID: 32, lines: 63..64, bytes: 3201..3237), hits: 1) -> "revert DSCEngine__NeedMoreThanZero()"
+- Statement (location: (source ID: 32, lines: 63..64, bytes: 3201..3237), hits: 1) -> "revert DSCEngine__NeedMoreThanZero()"
+- Line (location: (source ID: 32, lines: 68..74, bytes: 3343..3507), hits: 9) -> "modifier isAllowedToken(address ...en();\n        }\n        _;\n    }"
+- Function "isAllowedToken" (location: (source ID: 32, lines: 68..74, bytes: 3343..3507), hits: 9) -> "modifier isAllowedToken(address ...en();\n        }\n        _;\n    }"
+- Line (location: (source ID: 32, lines: 69..70, bytes: 3395..3428), hits: 9) -> "s_priceFeeds[token] == address(0)"
+- Statement (location: (source ID: 32, lines: 69..70, bytes: 3395..3428), hits: 9) -> "s_priceFeeds[token] == address(0)"
+- Branch (branch: 1, path: 0) (location: (source ID: 32, lines: 69..72, bytes: 3430..3490), hits: 1) -> "{\n            revert DSCEngine__NotAllowedToken();\n        }"
+- Line (location: (source ID: 32, lines: 70..71, bytes: 3444..3479), hits: 1) -> "revert DSCEngine__NotAllowedToken()"
+- Statement (location: (source ID: 32, lines: 70..71, bytes: 3444..3479), hits: 1) -> "revert DSCEngine__NotAllowedToken()"
+- Line (location: (source ID: 32, lines: 76..91, bytes: 3618..4265), hits: 14) -> "constructor(\n        address[] m...zedStableCoin(dscAddress);\n    }"
+- Function "constructor" (location: (source ID: 32, lines: 76..91, bytes: 3618..4265), hits: 14) -> "constructor(\n        address[] m...zedStableCoin(dscAddress);\n    }"
+- Line (location: (source ID: 32, lines: 82..83, bytes: 3871..3921), hits: 14) -> "tokenAddresses.length != priceFeedAddresses.length"
+- Statement (location: (source ID: 32, lines: 82..83, bytes: 3871..3921), hits: 14) -> "tokenAddresses.length != priceFeedAddresses.length"
+- Branch (branch: 2, path: 0) (location: (source ID: 32, lines: 82..85, bytes: 3923..4009), hits: 1) -> "{\n            revert DSCEngine__...sesMustBeSameLength();\n        }"
+- Line (location: (source ID: 32, lines: 83..84, bytes: 3937..3998), hits: 1) -> "revert DSCEngine__TokenAndPricFeedAddressesMustBeSameLength()"
+- Statement (location: (source ID: 32, lines: 83..84, bytes: 3937..3998), hits: 1) -> "revert DSCEngine__TokenAndPricFeedAddressesMustBeSameLength()"
+- Line (location: (source ID: 32, lines: 85..86, bytes: 4023..4036), hits: 13) -> "uint256 i = 0"
+- Statement (location: (source ID: 32, lines: 85..86, bytes: 4023..4036), hits: 13) -> "uint256 i = 0"
+- Statement (location: (source ID: 32, lines: 85..86, bytes: 4038..4063), hits: 39) -> "i < tokenAddresses.length"
+- Statement (location: (source ID: 32, lines: 85..86, bytes: 4065..4068), hits: 26) -> "i++"
+- Line (location: (source ID: 32, lines: 86..87, bytes: 4084..4139), hits: 26) -> "s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i]"
+- Statement (location: (source ID: 32, lines: 86..87, bytes: 4084..4139), hits: 26) -> "s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i]"
+- Line (location: (source ID: 32, lines: 87..88, bytes: 4153..4195), hits: 26) -> "s_collateralTokens.push(tokenAddresses[i])"
+- Statement (location: (source ID: 32, lines: 87..88, bytes: 4153..4195), hits: 26) -> "s_collateralTokens.push(tokenAddresses[i])"
+- Line (location: (source ID: 32, lines: 89..90, bytes: 4215..4258), hits: 13) -> "i_dsc = DecentralizedStableCoin(dscAddress)"
+- Statement (location: (source ID: 32, lines: 89..90, bytes: 4215..4258), hits: 13) -> "i_dsc = DecentralizedStableCoin(dscAddress)"
+- Line (location: (source ID: 32, lines: 94..102, bytes: 4402..4671), hits: 1) -> "function depositCollateralAndMin... mintDsc(amountDscToMint);\n    }"
+- Function "depositCollateralAndMintDsc" (location: (source ID: 32, lines: 94..102, bytes: 4402..4671), hits: 1) -> "function depositCollateralAndMin... mintDsc(amountDscToMint);\n    }"
+- Line (location: (source ID: 32, lines: 99..100, bytes: 4571..4630), hits: 1) -> "depositCollateral(tokenCollateralAddress, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 99..100, bytes: 4571..4630), hits: 1) -> "depositCollateral(tokenCollateralAddress, amountCollateral)"
+- Line (location: (source ID: 32, lines: 100..101, bytes: 4640..4664), hits: 0) -> "mintDsc(amountDscToMint)"
+- Statement (location: (source ID: 32, lines: 100..101, bytes: 4640..4664), hits: 0) -> "mintDsc(amountDscToMint)"
+- Line (location: (source ID: 32, lines: 106..117, bytes: 4922..5496), hits: 10) -> "function depositCollateral(\n    ...ransferFailed();\n        }\n    }"
+- Function "depositCollateral" (location: (source ID: 32, lines: 106..117, bytes: 4922..5496), hits: 10) -> "function depositCollateral(\n    ...ransferFailed();\n        }\n    }"
+- Line (location: (source ID: 32, lines: 110..111, bytes: 5129..5206), hits: 8) -> "s_collateralDeposited[msg.sender...eralAddress] += amountCollateral"
+- Statement (location: (source ID: 32, lines: 110..111, bytes: 5129..5206), hits: 8) -> "s_collateralDeposited[msg.sender...eralAddress] += amountCollateral"
+- Line (location: (source ID: 32, lines: 111..112, bytes: 5216..5294), hits: 8) -> "emit CollateralDeposited(msg.sen...ateralAddress, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 111..112, bytes: 5216..5294), hits: 8) -> "emit CollateralDeposited(msg.sen...ateralAddress, amountCollateral)"
+- Line (location: (source ID: 32, lines: 112..113, bytes: 5304..5407), hits: 8) -> "bool success = IERC20(tokenColla...address(this), amountCollateral)"
+- Statement (location: (source ID: 32, lines: 112..113, bytes: 5304..5407), hits: 8) -> "bool success = IERC20(tokenColla...address(this), amountCollateral)"
+- Statement (location: (source ID: 32, lines: 112..113, bytes: 5319..5407), hits: 8) -> "IERC20(tokenCollateralAddress).t...address(this), amountCollateral)"
+- Line (location: (source ID: 32, lines: 113..114, bytes: 5421..5429), hits: 8) -> "!success"
+- Statement (location: (source ID: 32, lines: 113..114, bytes: 5421..5429), hits: 8) -> "!success"
+- Branch (branch: 3, path: 0) (location: (source ID: 32, lines: 113..116, bytes: 5431..5490), hits: 0) -> "{\n            revert DSCEngine__TransferFailed();\n        }"
+- Line (location: (source ID: 32, lines: 114..115, bytes: 5445..5479), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Statement (location: (source ID: 32, lines: 114..115, bytes: 5445..5479), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Line (location: (source ID: 32, lines: 119..128, bytes: 5608..5994), hits: 5) -> "function mintDsc(uint256 amountD...e__MintFailed();\n        }\n    }"
+- Function "mintDsc" (location: (source ID: 32, lines: 119..128, bytes: 5608..5994), hits: 5) -> "function mintDsc(uint256 amountD...e__MintFailed();\n        }\n    }"
+- Line (location: (source ID: 32, lines: 120..121, bytes: 5710..5752), hits: 4) -> "s_DSCMinted[msg.sender] += amountDscToMint"
+- Statement (location: (source ID: 32, lines: 120..121, bytes: 5710..5752), hits: 4) -> "s_DSCMinted[msg.sender] += amountDscToMint"
+- Line (location: (source ID: 32, lines: 122..123, bytes: 5807..5848), hits: 4) -> "_revertIfHealthFactorIsBroken(msg.sender)"
+- Statement (location: (source ID: 32, lines: 122..123, bytes: 5807..5848), hits: 4) -> "_revertIfHealthFactorIsBroken(msg.sender)"
+- Line (location: (source ID: 32, lines: 123..124, bytes: 5858..5911), hits: 4) -> "bool minted = i_dsc.mint(msg.sender, amountDscToMint)"
+- Statement (location: (source ID: 32, lines: 123..124, bytes: 5858..5911), hits: 4) -> "bool minted = i_dsc.mint(msg.sender, amountDscToMint)"
+- Statement (location: (source ID: 32, lines: 123..124, bytes: 5872..5911), hits: 4) -> "i_dsc.mint(msg.sender, amountDscToMint)"
+- Line (location: (source ID: 32, lines: 124..125, bytes: 5924..5931), hits: 4) -> "!minted"
+- Statement (location: (source ID: 32, lines: 124..125, bytes: 5924..5931), hits: 4) -> "!minted"
+- Branch (branch: 4, path: 0) (location: (source ID: 32, lines: 124..127, bytes: 5933..5988), hits: 0) -> "{\n            revert DSCEngine__MintFailed();\n        }"
+- Line (location: (source ID: 32, lines: 125..126, bytes: 5947..5977), hits: 0) -> "revert DSCEngine__MintFailed()"
+- Statement (location: (source ID: 32, lines: 125..126, bytes: 5947..5977), hits: 0) -> "revert DSCEngine__MintFailed()"
+- Line (location: (source ID: 32, lines: 131..136, bytes: 6129..6383), hits: 0) -> "function redeemCollateralForDsc(...ss, amountCollateral);\n        }"
+- Function "redeemCollateralForDsc" (location: (source ID: 32, lines: 131..136, bytes: 6129..6383), hits: 0) -> "function redeemCollateralForDsc(...ss, amountCollateral);\n        }"
+- Line (location: (source ID: 32, lines: 133..134, bytes: 6276..6300), hits: 0) -> "burnDsc(amountDscToBurn)"
+- Statement (location: (source ID: 32, lines: 133..134, bytes: 6276..6300), hits: 0) -> "burnDsc(amountDscToBurn)"
+- Line (location: (source ID: 32, lines: 134..135, bytes: 6314..6372), hits: 0) -> "redeemCollateral(tokenCollateralAddress, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 134..135, bytes: 6314..6372), hits: 0) -> "redeemCollateral(tokenCollateralAddress, amountCollateral)"
+- Line (location: (source ID: 32, lines: 140..145, bytes: 6560..6867), hits: 1) -> "function redeemCollateral(addres...rIsBroken(msg.sender);\n        }"
+- Function "redeemCollateral" (location: (source ID: 32, lines: 140..145, bytes: 6560..6867), hits: 1) -> "function redeemCollateral(addres...rIsBroken(msg.sender);\n        }"
+- Line (location: (source ID: 32, lines: 142..143, bytes: 6718..6801), hits: 0) -> "_redeemCollateral(msg.sender, ms...ateralAddress, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 142..143, bytes: 6718..6801), hits: 0) -> "_redeemCollateral(msg.sender, ms...ateralAddress, amountCollateral)"
+- Line (location: (source ID: 32, lines: 143..144, bytes: 6815..6856), hits: 0) -> "_revertIfHealthFactorIsBroken(msg.sender)"
+- Statement (location: (source ID: 32, lines: 143..144, bytes: 6815..6856), hits: 0) -> "_revertIfHealthFactorIsBroken(msg.sender)"
+- Line (location: (source ID: 32, lines: 148..152, bytes: 6982..7144), hits: 1) -> "function burnDsc(uint256 amount)...    // i_dsc.burn(amount);\n    }"
+- Function "burnDsc" (location: (source ID: 32, lines: 148..152, bytes: 6982..7144), hits: 1) -> "function burnDsc(uint256 amount)...    // i_dsc.burn(amount);\n    }"
+- Line (location: (source ID: 32, lines: 149..150, bytes: 7066..7106), hits: 0) -> "_burnDsc(amount, msg.sender, msg.sender)"
+- Statement (location: (source ID: 32, lines: 149..150, bytes: 7066..7106), hits: 0) -> "_burnDsc(amount, msg.sender, msg.sender)"
+- Line (location: (source ID: 32, lines: 154..174, bytes: 7256..8318), hits: 1) -> "function liquidate(address colla...hFactorIsBroken(user);\n        }"
+- Function "liquidate" (location: (source ID: 32, lines: 154..174, bytes: 7256..8318), hits: 1) -> "function liquidate(address colla...hFactorIsBroken(user);\n        }"
+- Line (location: (source ID: 32, lines: 156..157, bytes: 7401..7455), hits: 0) -> "uint256 startingUserHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 156..157, bytes: 7401..7455), hits: 0) -> "uint256 startingUserHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 156..157, bytes: 7436..7455), hits: 0) -> "_healthFactor(user)"
+- Line (location: (source ID: 32, lines: 157..158, bytes: 7472..7517), hits: 0) -> "startingUserHealthFactor >= MIN_HEALTH_FACTOR"
+- Statement (location: (source ID: 32, lines: 157..158, bytes: 7472..7517), hits: 0) -> "startingUserHealthFactor >= MIN_HEALTH_FACTOR"
+- Branch (branch: 5, path: 0) (location: (source ID: 32, lines: 157..160, bytes: 7519..7586), hits: 0) -> "{\n                revert DSCEngi..._HealthFactorOk();\n            }"
+- Line (location: (source ID: 32, lines: 158..159, bytes: 7537..7571), hits: 0) -> "revert DSCEngine__HealthFactorOk()"
+- Statement (location: (source ID: 32, lines: 158..159, bytes: 7537..7571), hits: 0) -> "revert DSCEngine__HealthFactorOk()"
+- Line (location: (source ID: 32, lines: 160..161, bytes: 7599..7682), hits: 0) -> "uint256 tokenAmountFromDebtCover...FromUsd(collateral, debtToCover)"
+- Statement (location: (source ID: 32, lines: 160..161, bytes: 7599..7682), hits: 0) -> "uint256 tokenAmountFromDebtCover...FromUsd(collateral, debtToCover)"
+- Statement (location: (source ID: 32, lines: 160..161, bytes: 7636..7682), hits: 0) -> "getTokenAmountFromUsd(collateral, debtToCover)"
+- Line (location: (source ID: 32, lines: 162..163, bytes: 7725..7823), hits: 0) -> "uint256 bonusCollateral = (token...N_BONUS) / LIQUIDATION_PRECISION"
+- Statement (location: (source ID: 32, lines: 162..163, bytes: 7725..7823), hits: 0) -> "uint256 bonusCollateral = (token...N_BONUS) / LIQUIDATION_PRECISION"
+- Statement (location: (source ID: 32, lines: 162..163, bytes: 7751..7823), hits: 0) -> "(tokenAmountFromDebtCovered * LI...N_BONUS) / LIQUIDATION_PRECISION"
+- Line (location: (source ID: 32, lines: 163..164, bytes: 7837..7915), hits: 0) -> "uint256 totalCollateralToRedeem ...romDebtCovered + bonusCollateral"
+- Statement (location: (source ID: 32, lines: 163..164, bytes: 7837..7915), hits: 0) -> "uint256 totalCollateralToRedeem ...romDebtCovered + bonusCollateral"
+- Statement (location: (source ID: 32, lines: 163..164, bytes: 7871..7915), hits: 0) -> "tokenAmountFromDebtCovered + bonusCollateral"
+- Line (location: (source ID: 32, lines: 164..165, bytes: 7929..8001), hits: 0) -> "_redeemCollateral(user, msg.send...ateral, totalCollateralToRedeem)"
+- Statement (location: (source ID: 32, lines: 164..165, bytes: 7929..8001), hits: 0) -> "_redeemCollateral(user, msg.send...ateral, totalCollateralToRedeem)"
+- Line (location: (source ID: 32, lines: 166..167, bytes: 8016..8055), hits: 0) -> "_burnDsc(debtToCover, user, msg.sender)"
+- Statement (location: (source ID: 32, lines: 166..167, bytes: 8016..8055), hits: 0) -> "_burnDsc(debtToCover, user, msg.sender)"
+- Line (location: (source ID: 32, lines: 168..169, bytes: 8070..8118), hits: 0) -> "uint256 endingHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 168..169, bytes: 8070..8118), hits: 0) -> "uint256 endingHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 168..169, bytes: 8099..8118), hits: 0) -> "_healthFactor(user)"
+- Line (location: (source ID: 32, lines: 169..170, bytes: 8135..8181), hits: 0) -> "endingHealthFactor <= startingUserHealthFactor"
+- Statement (location: (source ID: 32, lines: 169..170, bytes: 8135..8181), hits: 0) -> "endingHealthFactor <= startingUserHealthFactor"
+- Branch (branch: 6, path: 0) (location: (source ID: 32, lines: 169..172, bytes: 8183..8259), hits: 0) -> "{\n                revert DSCEngi...ctorNotImproved();\n            }"
+- Line (location: (source ID: 32, lines: 170..171, bytes: 8201..8244), hits: 0) -> "revert DSCEngine__HealthFactorNotImproved()"
+- Statement (location: (source ID: 32, lines: 170..171, bytes: 8201..8244), hits: 0) -> "revert DSCEngine__HealthFactorNotImproved()"
+- Line (location: (source ID: 32, lines: 172..173, bytes: 8272..8307), hits: 0) -> "_revertIfHealthFactorIsBroken(user)"
+- Statement (location: (source ID: 32, lines: 172..173, bytes: 8272..8307), hits: 0) -> "_revertIfHealthFactorIsBroken(user)"
+- Line (location: (source ID: 32, lines: 176..177, bytes: 8430..8473), hits: 0) -> "function getHealthFactor() external view {}"
+- Function "getHealthFactor" (location: (source ID: 32, lines: 176..177, bytes: 8430..8473), hits: 0) -> "function getHealthFactor() external view {}"
+- Line (location: (source ID: 32, lines: 181..186, bytes: 8647..8905), hits: 6) -> "function _getAccountInformation(...CollateralValue(user);\n        }"
+- Function "_getAccountInformation" (location: (source ID: 32, lines: 181..186, bytes: 8647..8905), hits: 6) -> "function _getAccountInformation(...CollateralValue(user);\n        }"
+- Line (location: (source ID: 32, lines: 183..184, bytes: 8792..8826), hits: 6) -> "totalDscMinted = s_DSCMinted[user]"
+- Statement (location: (source ID: 32, lines: 183..184, bytes: 8792..8826), hits: 6) -> "totalDscMinted = s_DSCMinted[user]"
+- Line (location: (source ID: 32, lines: 184..185, bytes: 8840..8894), hits: 6) -> "collateralValueInUsd = getAccountCollateralValue(user)"
+- Statement (location: (source ID: 32, lines: 184..185, bytes: 8840..8894), hits: 6) -> "collateralValueInUsd = getAccountCollateralValue(user)"
+- Line (location: (source ID: 32, lines: 188..197, bytes: 8962..9458), hits: 0) -> "function _redeemCollateral(addre...ailed();\n            }\n        }"
+- Function "_redeemCollateral" (location: (source ID: 32, lines: 188..197, bytes: 8962..9458), hits: 0) -> "function _redeemCollateral(addre...ailed();\n            }\n        }"
+- Line (location: (source ID: 32, lines: 190..191, bytes: 9103..9174), hits: 0) -> "s_collateralDeposited[from][toke...eralAddress] -= amountCollateral"
+- Statement (location: (source ID: 32, lines: 190..191, bytes: 9103..9174), hits: 0) -> "s_collateralDeposited[from][toke...eralAddress] -= amountCollateral"
+- Line (location: (source ID: 32, lines: 191..192, bytes: 9188..9263), hits: 0) -> "emit CollateralRedeemed(from, to...ateralAddress, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 191..192, bytes: 9188..9263), hits: 0) -> "emit CollateralRedeemed(from, to...ateralAddress, amountCollateral)"
+- Line (location: (source ID: 32, lines: 192..193, bytes: 9277..9353), hits: 0) -> "bool success = IERC20(tokenColla...).transfer(to, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 192..193, bytes: 9277..9353), hits: 0) -> "bool success = IERC20(tokenColla...).transfer(to, amountCollateral)"
+- Statement (location: (source ID: 32, lines: 192..193, bytes: 9292..9353), hits: 0) -> "IERC20(tokenCollateralAddress).transfer(to, amountCollateral)"
+- Line (location: (source ID: 32, lines: 193..194, bytes: 9371..9379), hits: 0) -> "!success"
+- Statement (location: (source ID: 32, lines: 193..194, bytes: 9371..9379), hits: 0) -> "!success"
+- Branch (branch: 7, path: 0) (location: (source ID: 32, lines: 193..196, bytes: 9381..9448), hits: 0) -> "{\n                revert DSCEngi..._TransferFailed();\n            }"
+- Line (location: (source ID: 32, lines: 194..195, bytes: 9399..9433), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Statement (location: (source ID: 32, lines: 194..195, bytes: 9399..9433), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Line (location: (source ID: 32, lines: 200..208, bytes: 9517..9867), hits: 0) -> "function _burnDsc(uint256 amount...dsc.burn(amountDscToBurn);\n    }"
+- Function "_burnDsc" (location: (source ID: 32, lines: 200..208, bytes: 9517..9867), hits: 0) -> "function _burnDsc(uint256 amount...dsc.burn(amountDscToBurn);\n    }"
+- Line (location: (source ID: 32, lines: 201..202, bytes: 9615..9657), hits: 0) -> "s_DSCMinted[onBehalfOf] -= amountDscToBurn"
+- Statement (location: (source ID: 32, lines: 201..202, bytes: 9615..9657), hits: 0) -> "s_DSCMinted[onBehalfOf] -= amountDscToBurn"
+- Line (location: (source ID: 32, lines: 202..203, bytes: 9667..9741), hits: 0) -> "bool success = i_dsc.transferFro... address(this), amountDscToBurn)"
+- Statement (location: (source ID: 32, lines: 202..203, bytes: 9667..9741), hits: 0) -> "bool success = i_dsc.transferFro... address(this), amountDscToBurn)"
+- Statement (location: (source ID: 32, lines: 202..203, bytes: 9682..9741), hits: 0) -> "i_dsc.transferFrom(dscFrom, address(this), amountDscToBurn)"
+- Line (location: (source ID: 32, lines: 203..204, bytes: 9755..9763), hits: 0) -> "!success"
+- Statement (location: (source ID: 32, lines: 203..204, bytes: 9755..9763), hits: 0) -> "!success"
+- Branch (branch: 8, path: 0) (location: (source ID: 32, lines: 203..206, bytes: 9765..9824), hits: 0) -> "{\n            revert DSCEngine__TransferFailed();\n        }"
+- Line (location: (source ID: 32, lines: 204..205, bytes: 9779..9813), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Statement (location: (source ID: 32, lines: 204..205, bytes: 9779..9813), hits: 0) -> "revert DSCEngine__TransferFailed()"
+- Line (location: (source ID: 32, lines: 206..207, bytes: 9833..9860), hits: 0) -> "i_dsc.burn(amountDscToBurn)"
+- Statement (location: (source ID: 32, lines: 206..207, bytes: 9833..9860), hits: 0) -> "i_dsc.burn(amountDscToBurn)"
+- Line (location: (source ID: 32, lines: 211..219, bytes: 9954..10464), hits: 4) -> "function _healthFactor(address u...ueInUsd / totalDSCMinted);\n    }"
+- Function "_healthFactor" (location: (source ID: 32, lines: 211..219, bytes: 9954..10464), hits: 4) -> "function _healthFactor(address u...ueInUsd / totalDSCMinted);\n    }"
+- Line (location: (source ID: 32, lines: 214..215, bytes: 10092..10177), hits: 4) -> "(uint256 totalDscMinted, uint256...) = _getAccountInformation(user)"
+- Statement (location: (source ID: 32, lines: 214..215, bytes: 10092..10177), hits: 4) -> "(uint256 totalDscMinted, uint256...) = _getAccountInformation(user)"
+- Statement (location: (source ID: 32, lines: 214..215, bytes: 10149..10177), hits: 4) -> "_getAccountInformation(user)"
+- Line (location: (source ID: 32, lines: 215..216, bytes: 10187..10298), hits: 4) -> "uint256 collateralAdjustedForThr...RESHOLD) / LIQUIDATION_PRECISION"
+- Statement (location: (source ID: 32, lines: 215..216, bytes: 10187..10298), hits: 4) -> "uint256 collateralAdjustedForThr...RESHOLD) / LIQUIDATION_PRECISION"
+- Statement (location: (source ID: 32, lines: 215..216, bytes: 10228..10298), hits: 4) -> "(collateralValueInUsd * LIQUIDAT...RESHOLD) / LIQUIDATION_PRECISION"
+- Line (location: (source ID: 32, lines: 216..217, bytes: 10331..10398), hits: 4) -> "return(collateralAdjustedForThre...ld * PRECISION) / totalDscMinted"
+- Statement (location: (source ID: 32, lines: 216..217, bytes: 10331..10398), hits: 4) -> "return(collateralAdjustedForThre...ld * PRECISION) / totalDscMinted"
+- Statement (location: (source ID: 32, lines: 216..217, bytes: 10337..10398), hits: 4) -> "(collateralAdjustedForThreshold * PRECISION) / totalDscMinted"
+- Line (location: (source ID: 32, lines: 224..230, bytes: 10625..10886), hits: 4) -> "function _revertIfHealthFactorIs...erHealthFactor);\n        }\n    }"
+- Function "_revertIfHealthFactorIsBroken" (location: (source ID: 32, lines: 224..230, bytes: 10625..10886), hits: 4) -> "function _revertIfHealthFactorIs...erHealthFactor);\n        }\n    }"
+- Line (location: (source ID: 32, lines: 225..226, bytes: 10702..10748), hits: 4) -> "uint256 userHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 225..226, bytes: 10702..10748), hits: 4) -> "uint256 userHealthFactor = _healthFactor(user)"
+- Statement (location: (source ID: 32, lines: 225..226, bytes: 10729..10748), hits: 4) -> "_healthFactor(user)"
+- Line (location: (source ID: 32, lines: 226..227, bytes: 10761..10797), hits: 4) -> "userHealthFactor < MIN_HEALTH_FACTOR"
+- Statement (location: (source ID: 32, lines: 226..227, bytes: 10761..10797), hits: 4) -> "userHealthFactor < MIN_HEALTH_FACTOR"
+- Branch (branch: 9, path: 0) (location: (source ID: 32, lines: 226..229, bytes: 10799..10880), hits: 0) -> "{\n            revert DSCEngine__...ken(userHealthFactor);\n        }"
+- Line (location: (source ID: 32, lines: 227..228, bytes: 10813..10869), hits: 0) -> "revert DSCEngine__HealthFactorIsBroken(userHealthFactor)"
+- Statement (location: (source ID: 32, lines: 227..228, bytes: 10813..10869), hits: 0) -> "revert DSCEngine__HealthFactorIsBroken(userHealthFactor)"
+- Line (location: (source ID: 32, lines: 236..244, bytes: 11142..11556), hits: 0) -> "function getAccountCollateralVal...totalCollateralValueInUsd;\n    }"
+- Function "getAccountCollateralValue" (location: (source ID: 32, lines: 236..244, bytes: 11142..11556), hits: 0) -> "function getAccountCollateralVal...totalCollateralValueInUsd;\n    }"
+- Line (location: (source ID: 32, lines: 237..238, bytes: 11261..11274), hits: 6) -> "uint256 i = 0"
+- Statement (location: (source ID: 32, lines: 237..238, bytes: 11261..11274), hits: 6) -> "uint256 i = 0"
+- Statement (location: (source ID: 32, lines: 237..238, bytes: 11276..11305), hits: 18) -> "i < s_collateralTokens.length"
+- Statement (location: (source ID: 32, lines: 237..238, bytes: 11307..11310), hits: 12) -> "i++"
+- Line (location: (source ID: 32, lines: 238..239, bytes: 11326..11363), hits: 12) -> "address token = s_collateralTokens[i]"
+- Statement (location: (source ID: 32, lines: 238..239, bytes: 11326..11363), hits: 12) -> "address token = s_collateralTokens[i]"
+- Line (location: (source ID: 32, lines: 239..240, bytes: 11377..11428), hits: 12) -> "uint256 amount = s_collateralDeposited[user][token]"
+- Statement (location: (source ID: 32, lines: 239..240, bytes: 11377..11428), hits: 12) -> "uint256 amount = s_collateralDeposited[user][token]"
+- Line (location: (source ID: 32, lines: 240..241, bytes: 11442..11497), hits: 12) -> "totalCollateralValueInUsd += getUsdValue(token, amount)"
+- Statement (location: (source ID: 32, lines: 240..241, bytes: 11442..11497), hits: 12) -> "totalCollateralValueInUsd += getUsdValue(token, amount)"
+- Line (location: (source ID: 32, lines: 242..243, bytes: 11517..11549), hits: 0) -> "return totalCollateralValueInUsd"
+- Statement (location: (source ID: 32, lines: 242..243, bytes: 11517..11549), hits: 0) -> "return totalCollateralValueInUsd"
+- Line (location: (source ID: 32, lines: 246..255, bytes: 11604..12013), hits: 2) -> "function getUsdValue(address tok...ON) * amount) / PRECISION;\n    }"
+- Function "getUsdValue" (location: (source ID: 32, lines: 246..255, bytes: 11604..12013), hits: 2) -> "function getUsdValue(address tok...ON) * amount) / PRECISION;\n    }"
+- Line (location: (source ID: 32, lines: 247..248, bytes: 11696..11772), hits: 14) -> "AggregatorV3Interface priceFeed ...V3Interface(s_priceFeeds[token])"
+- Statement (location: (source ID: 32, lines: 247..248, bytes: 11696..11772), hits: 14) -> "AggregatorV3Interface priceFeed ...V3Interface(s_priceFeeds[token])"
+- Statement (location: (source ID: 32, lines: 247..248, bytes: 11730..11772), hits: 14) -> "AggregatorV3Interface(s_priceFeeds[token])"
+- Line (location: (source ID: 32, lines: 248..249, bytes: 11782..11834), hits: 14) -> "(, int256 price, , , ) = priceFeed.latestRoundData()"
+- Statement (location: (source ID: 32, lines: 248..249, bytes: 11782..11834), hits: 14) -> "(, int256 price, , , ) = priceFeed.latestRoundData()"
+- Statement (location: (source ID: 32, lines: 248..249, bytes: 11807..11834), hits: 14) -> "priceFeed.latestRoundData()"
+- Line (location: (source ID: 32, lines: 249..250, bytes: 11847..11857), hits: 14) -> "price <= 0"
+- Statement (location: (source ID: 32, lines: 249..250, bytes: 11847..11857), hits: 14) -> "price <= 0"
+- Branch (branch: 10, path: 0) (location: (source ID: 32, lines: 249..252, bytes: 11859..11916), hits: 0) -> "{\n            revert DSCEngine__InvalidPrice();\n        }"
+- Line (location: (source ID: 32, lines: 250..251, bytes: 11873..11905), hits: 0) -> "revert DSCEngine__InvalidPrice()"
+- Statement (location: (source ID: 32, lines: 250..251, bytes: 11873..11905), hits: 0) -> "revert DSCEngine__InvalidPrice()"
+- Line (location: (source ID: 32, lines: 253..254, bytes: 11932..12006), hits: 14) -> "return ((uint256(price) * ADDITI...PRECISION) * amount) / PRECISION"
+- Statement (location: (source ID: 32, lines: 253..254, bytes: 11932..12006), hits: 14) -> "return ((uint256(price) * ADDITI...PRECISION) * amount) / PRECISION"
+- Statement (location: (source ID: 32, lines: 253..254, bytes: 11939..12006), hits: 14) -> "((uint256(price) * ADDITIONAL_FE...PRECISION) * amount) / PRECISION"
+- Line (location: (source ID: 32, lines: 257..262, bytes: 12059..12406), hits: 2) -> "function getTokenAmountFromUsd(a...DDITIONAL_FEED_PRECISION);\n    }"
+- Function "getTokenAmountFromUsd" (location: (source ID: 32, lines: 257..262, bytes: 12059..12406), hits: 2) -> "function getTokenAmountFromUsd(a...DDITIONAL_FEED_PRECISION);\n    }"
+- Line (location: (source ID: 32, lines: 258..259, bytes: 12169..12245), hits: 2) -> "AggregatorV3Interface priceFeed ...V3Interface(s_priceFeeds[token])"
+- Statement (location: (source ID: 32, lines: 258..259, bytes: 12169..12245), hits: 2) -> "AggregatorV3Interface priceFeed ...V3Interface(s_priceFeeds[token])"
+- Statement (location: (source ID: 32, lines: 258..259, bytes: 12203..12245), hits: 2) -> "AggregatorV3Interface(s_priceFeeds[token])"
+- Line (location: (source ID: 32, lines: 259..260, bytes: 12255..12307), hits: 2) -> "(, int256 price, , , ) = priceFeed.latestRoundData()"
+- Statement (location: (source ID: 32, lines: 259..260, bytes: 12255..12307), hits: 2) -> "(, int256 price, , , ) = priceFeed.latestRoundData()"
+- Statement (location: (source ID: 32, lines: 259..260, bytes: 12280..12307), hits: 2) -> "priceFeed.latestRoundData()"
+- Line (location: (source ID: 32, lines: 260..261, bytes: 12317..12399), hits: 2) -> "return (usdAmountInWei * PRECISI...ce) * ADDITIONAL_FEED_PRECISION)"
+- Statement (location: (source ID: 32, lines: 260..261, bytes: 12317..12399), hits: 2) -> "return (usdAmountInWei * PRECISI...ce) * ADDITIONAL_FEED_PRECISION)"
+- Statement (location: (source ID: 32, lines: 260..261, bytes: 12324..12399), hits: 2) -> "(usdAmountInWei * PRECISION) / (...ce) * ADDITIONAL_FEED_PRECISION)"
+- Line (location: (source ID: 32, lines: 264..268, bytes: 12453..12666), hits: 2) -> "function getAccInfo(address user...ountInformation(user);\n        }"
+- Function "getAccInfo" (location: (source ID: 32, lines: 264..268, bytes: 12453..12666), hits: 2) -> "function getAccInfo(address user...ountInformation(user);\n        }"
+- Line (location: (source ID: 32, lines: 266..267, bytes: 12586..12655), hits: 2) -> "(totalDscMinted, collateralValue...) = _getAccountInformation(user)"
+- Statement (location: (source ID: 32, lines: 266..267, bytes: 12586..12655), hits: 2) -> "(totalDscMinted, collateralValue...) = _getAccountInformation(user)"
+
+src/DecentralizedStableCoin.sol:
+- Line (location: (source ID: 33, lines: 26..36, bytes: 938..1311), hits: 0) -> "function burn (uint256 _amount) ...      super.burn(_amount);\n    }"
+- Function "burn" (location: (source ID: 33, lines: 26..36, bytes: 938..1311), hits: 0) -> "function burn (uint256 _amount) ...      super.burn(_amount);\n    }"
+- Line (location: (source ID: 33, lines: 27..28, bytes: 1006..1045), hits: 0) -> "uint256 balance = balanceOf(msg.sender)"
+- Statement (location: (source ID: 33, lines: 27..28, bytes: 1006..1045), hits: 0) -> "uint256 balance = balanceOf(msg.sender)"
+- Statement (location: (source ID: 33, lines: 27..28, bytes: 1024..1045), hits: 0) -> "balanceOf(msg.sender)"
+- Line (location: (source ID: 33, lines: 28..29, bytes: 1058..1070), hits: 0) -> "_amount <= 0"
+- Statement (location: (source ID: 33, lines: 28..29, bytes: 1058..1070), hits: 0) -> "_amount <= 0"
+- Branch (branch: 0, path: 0) (location: (source ID: 33, lines: 28..31, bytes: 1072..1155), hits: 0) -> "{\n            revert Decentraliz...tMustBeMoreThanZero();\n        }"
+- Line (location: (source ID: 33, lines: 29..30, bytes: 1086..1144), hits: 0) -> "revert DecentralizedStableCoin__AmountMustBeMoreThanZero()"
+- Statement (location: (source ID: 33, lines: 29..30, bytes: 1086..1144), hits: 0) -> "revert DecentralizedStableCoin__AmountMustBeMoreThanZero()"
+- Line (location: (source ID: 33, lines: 31..32, bytes: 1167..1184), hits: 0) -> "balance < _amount"
+- Statement (location: (source ID: 33, lines: 31..32, bytes: 1167..1184), hits: 0) -> "balance < _amount"
+- Branch (branch: 1, path: 0) (location: (source ID: 33, lines: 31..34, bytes: 1186..1276), hits: 0) -> "{\n            revert Decentraliz...stBeLessThanBalance();\n        }"
+- Line (location: (source ID: 33, lines: 32..33, bytes: 1200..1265), hits: 0) -> "revert DecentralizedStableCoin__...urnAmountMustBeLessThanBalance()"
+- Statement (location: (source ID: 33, lines: 32..33, bytes: 1200..1265), hits: 0) -> "revert DecentralizedStableCoin__...urnAmountMustBeLessThanBalance()"
+- Line (location: (source ID: 33, lines: 34..35, bytes: 1285..1304), hits: 0) -> "super.burn(_amount)"
+- Statement (location: (source ID: 33, lines: 34..35, bytes: 1285..1304), hits: 0) -> "super.burn(_amount)"
+- Line (location: (source ID: 33, lines: 37..47, bytes: 1317..1667), hits: 4) -> "function mint (address _to,uint2...unt);\n        return true;\n    }"
+- Function "mint" (location: (source ID: 33, lines: 37..47, bytes: 1317..1667), hits: 4) -> "function mint (address _to,uint2...unt);\n        return true;\n    }"
+- Line (location: (source ID: 33, lines: 38..39, bytes: 1409..1426), hits: 4) -> "_to == address(0)"
+- Statement (location: (source ID: 33, lines: 38..39, bytes: 1409..1426), hits: 4) -> "_to == address(0)"
+- Branch (branch: 2, path: 0) (location: (source ID: 33, lines: 38..41, bytes: 1428..1501), hits: 0) -> "{\n            revert Decentraliz...oin__NotZeroAddress();\n        }"
+- Line (location: (source ID: 33, lines: 39..40, bytes: 1442..1490), hits: 0) -> "revert DecentralizedStableCoin__NotZeroAddress()"
+- Statement (location: (source ID: 33, lines: 39..40, bytes: 1442..1490), hits: 0) -> "revert DecentralizedStableCoin__NotZeroAddress()"
+- Line (location: (source ID: 33, lines: 41..42, bytes: 1514..1526), hits: 4) -> "_amount <= 0"
+- Statement (location: (source ID: 33, lines: 41..42, bytes: 1514..1526), hits: 4) -> "_amount <= 0"
+- Branch (branch: 3, path: 0) (location: (source ID: 33, lines: 41..44, bytes: 1528..1611), hits: 0) -> "{\n            revert Decentraliz...tMustBeMoreThanZero();\n        }"
+- Line (location: (source ID: 33, lines: 42..43, bytes: 1542..1600), hits: 0) -> "revert DecentralizedStableCoin__AmountMustBeMoreThanZero()"
+- Statement (location: (source ID: 33, lines: 42..43, bytes: 1542..1600), hits: 0) -> "revert DecentralizedStableCoin__AmountMustBeMoreThanZero()"
+- Line (location: (source ID: 33, lines: 44..45, bytes: 1620..1639), hits: 4) -> "_mint(_to, _amount)"
+- Statement (location: (source ID: 33, lines: 44..45, bytes: 1620..1639), hits: 4) -> "_mint(_to, _amount)"
+- Line (location: (source ID: 33, lines: 45..46, bytes: 1649..1660), hits: 4) -> "return true"
+- Statement (location: (source ID: 33, lines: 45..46, bytes: 1649..1660), hits: 4) -> "return true"
+
+test/mocks/ERC20Mock.sol:
+- Line (location: (source ID: 34, lines: 7..15, bytes: 174..388), hits: 27) -> "constructor(\n        string memo...lAccount, initialBalance);\n    }"
+- Function "constructor" (location: (source ID: 34, lines: 7..15, bytes: 174..388), hits: 27) -> "constructor(\n        string memo...lAccount, initialBalance);\n    }"
+- Line (location: (source ID: 34, lines: 13..14, bytes: 344..381), hits: 27) -> "_mint(initialAccount, initialBalance)"
+- Statement (location: (source ID: 34, lines: 13..14, bytes: 344..381), hits: 27) -> "_mint(initialAccount, initialBalance)"
+- Line (location: (source ID: 34, lines: 16..19, bytes: 394..489), hits: 14) -> "function mint(address account, u...   _mint(account, amount);\n    }"
+- Function "mint" (location: (source ID: 34, lines: 16..19, bytes: 394..489), hits: 14) -> "function mint(address account, u...   _mint(account, amount);\n    }"
+- Line (location: (source ID: 34, lines: 17..18, bytes: 460..482), hits: 14) -> "_mint(account, amount)"
+- Statement (location: (source ID: 34, lines: 17..18, bytes: 460..482), hits: 14) -> "_mint(account, amount)"
+- Line (location: (source ID: 34, lines: 20..23, bytes: 495..590), hits: 0) -> "function burn(address account, u...   _burn(account, amount);\n    }"
+- Function "burn" (location: (source ID: 34, lines: 20..23, bytes: 495..590), hits: 0) -> "function burn(address account, u...   _burn(account, amount);\n    }"
+- Line (location: (source ID: 34, lines: 21..22, bytes: 561..583), hits: 0) -> "_burn(account, amount)"
+- Statement (location: (source ID: 34, lines: 21..22, bytes: 561..583), hits: 0) -> "_burn(account, amount)"
+
+test/mocks/MockV3Aggregator.sol:
+- Line (location: (source ID: 35, lines: 24..28, bytes: 680..807), hits: 26) -> "constructor(uint8 _decimals, int...ateAnswer(_initialAnswer);\n    }"
+- Function "constructor" (location: (source ID: 35, lines: 24..28, bytes: 680..807), hits: 26) -> "constructor(uint8 _decimals, int...ateAnswer(_initialAnswer);\n    }"
+- Line (location: (source ID: 35, lines: 25..26, bytes: 742..762), hits: 26) -> "decimals = _decimals"
+- Statement (location: (source ID: 35, lines: 25..26, bytes: 742..762), hits: 26) -> "decimals = _decimals"
+- Line (location: (source ID: 35, lines: 26..27, bytes: 772..800), hits: 26) -> "updateAnswer(_initialAnswer)"
+- Statement (location: (source ID: 35, lines: 26..27, bytes: 772..800), hits: 26) -> "updateAnswer(_initialAnswer)"
+- Line (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26) -> "function updateAnswer(int256 _an...tRound] = block.timestamp;\n    }"
+- Function "updateAnswer" (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26) -> "function updateAnswer(int256 _an...tRound] = block.timestamp;\n    }"
+- Line (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26) -> "latestAnswer = _answer"
+- Statement (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26) -> "latestAnswer = _answer"
+- Line (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26) -> "latestTimestamp = block.timestamp"
+- Statement (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26) -> "latestTimestamp = block.timestamp"
+- Line (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26) -> "latestRound++"
+- Statement (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26) -> "latestRound++"
+- Line (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26) -> "getAnswer[latestRound] = _answer"
+- Statement (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26) -> "getAnswer[latestRound] = _answer"
+- Line (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26) -> "getTimestamp[latestRound] = block.timestamp"
+- Statement (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26) -> "getTimestamp[latestRound] = block.timestamp"
+- Line (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26) -> "getStartedAt[latestRound] = block.timestamp"
+- Statement (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26) -> "getStartedAt[latestRound] = block.timestamp"
+- Line (location: (source ID: 35, lines: 38..46, bytes: 1117..1469), hits: 0) -> "function updateRoundData(uint80 ...latestRound] = _startedAt;\n    }"
+- Function "updateRoundData" (location: (source ID: 35, lines: 38..46, bytes: 1117..1469), hits: 0) -> "function updateRoundData(uint80 ...latestRound] = _startedAt;\n    }"
+- Line (location: (source ID: 35, lines: 39..40, bytes: 1232..1254), hits: 0) -> "latestRound = _roundId"
+- Statement (location: (source ID: 35, lines: 39..40, bytes: 1232..1254), hits: 0) -> "latestRound = _roundId"
+- Line (location: (source ID: 35, lines: 40..41, bytes: 1264..1286), hits: 0) -> "latestAnswer = _answer"
+- Statement (location: (source ID: 35, lines: 40..41, bytes: 1264..1286), hits: 0) -> "latestAnswer = _answer"
+- Line (location: (source ID: 35, lines: 41..42, bytes: 1296..1324), hits: 0) -> "latestTimestamp = _timestamp"
+- Statement (location: (source ID: 35, lines: 41..42, bytes: 1296..1324), hits: 0) -> "latestTimestamp = _timestamp"
+- Line (location: (source ID: 35, lines: 42..43, bytes: 1334..1366), hits: 0) -> "getAnswer[latestRound] = _answer"
+- Statement (location: (source ID: 35, lines: 42..43, bytes: 1334..1366), hits: 0) -> "getAnswer[latestRound] = _answer"
+- Line (location: (source ID: 35, lines: 43..44, bytes: 1376..1414), hits: 0) -> "getTimestamp[latestRound] = _timestamp"
+- Statement (location: (source ID: 35, lines: 43..44, bytes: 1376..1414), hits: 0) -> "getTimestamp[latestRound] = _timestamp"
+- Line (location: (source ID: 35, lines: 44..45, bytes: 1424..1462), hits: 0) -> "getStartedAt[latestRound] = _startedAt"
+- Statement (location: (source ID: 35, lines: 44..45, bytes: 1424..1462), hits: 0) -> "getStartedAt[latestRound] = _startedAt"
+- Line (location: (source ID: 35, lines: 47..54, bytes: 1475..1771), hits: 0) -> "function getRoundData(uint80 _ro...tamp[_roundId], _roundId);\n    }"
+- Function "getRoundData" (location: (source ID: 35, lines: 47..54, bytes: 1475..1771), hits: 0) -> "function getRoundData(uint80 _ro...tamp[_roundId], _roundId);\n    }"
+- Line (location: (source ID: 35, lines: 52..53, bytes: 1668..1764), hits: 0) -> "return (_roundId, getAnswer[_rou...etTimestamp[_roundId], _roundId)"
+- Statement (location: (source ID: 35, lines: 52..53, bytes: 1668..1764), hits: 0) -> "return (_roundId, getAnswer[_rou...etTimestamp[_roundId], _roundId)"
+- Line (location: (source ID: 35, lines: 55..68, bytes: 1777..2162), hits: 16) -> "function latestRoundData()\n     ...80(latestRound)\n        );\n    }"
+- Function "latestRoundData" (location: (source ID: 35, lines: 55..68, bytes: 1777..2162), hits: 16) -> "function latestRoundData()\n     ...80(latestRound)\n        );\n    }"
+- Line (location: (source ID: 35, lines: 60..67, bytes: 1958..2155), hits: 16) -> "return (\n            uint80(late...   uint80(latestRound)\n        )"
+- Statement (location: (source ID: 35, lines: 60..67, bytes: 1958..2155), hits: 16) -> "return (\n            uint80(late...   uint80(latestRound)\n        )"
+- Line (location: (source ID: 35, lines: 69..72, bytes: 2168..2286), hits: 0) -> "function description() external ...sts/MockV3Aggregator.sol\";\n    }"
+- Function "description" (location: (source ID: 35, lines: 69..72, bytes: 2168..2286), hits: 0) -> "function description() external ...sts/MockV3Aggregator.sol\";\n    }"
+- Line (location: (source ID: 35, lines: 70..71, bytes: 2239..2279), hits: 0) -> "return \"v0.6/tests/MockV3Aggregator.sol\""
+- Statement (location: (source ID: 35, lines: 70..71, bytes: 2239..2279), hits: 0) -> "return \"v0.6/tests/MockV3Aggregator.sol\""
+
+Anchors for Contract "MockV3Aggregator" (solc 0.8.30, source ID 35):
+- creation IC 5 -> Item 326: Line (location: (source ID: 35, lines: 24..28, bytes: 680..807), hits: 26)
+- creation IC 5 -> Item 327: Function "constructor" (location: (source ID: 35, lines: 24..28, bytes: 680..807), hits: 26)
+- creation IC 50 -> Item 328: Line (location: (source ID: 35, lines: 25..26, bytes: 742..762), hits: 26)
+- creation IC 50 -> Item 329: Statement (location: (source ID: 35, lines: 25..26, bytes: 742..762), hits: 26)
+- creation IC 75 -> Item 330: Line (location: (source ID: 35, lines: 26..27, bytes: 772..800), hits: 26)
+- creation IC 75 -> Item 331: Statement (location: (source ID: 35, lines: 26..27, bytes: 772..800), hits: 26)
+- creation IC 96 -> Item 332: Line (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26)
+- creation IC 96 -> Item 333: Function "updateAnswer" (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26)
+- creation IC 97 -> Item 334: Line (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26)
+- creation IC 97 -> Item 335: Statement (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26)
+- creation IC 104 -> Item 336: Line (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26)
+- creation IC 104 -> Item 337: Statement (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26)
+- creation IC 111 -> Item 338: Line (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26)
+- creation IC 111 -> Item 339: Statement (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26)
+- creation IC 134 -> Item 340: Line (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26)
+- creation IC 134 -> Item 341: Statement (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26)
+- creation IC 158 -> Item 342: Line (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26)
+- creation IC 158 -> Item 343: Statement (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26)
+- creation IC 182 -> Item 344: Line (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26)
+- creation IC 182 -> Item 345: Statement (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26)
+-  runtime IC 442 -> Item 332: Line (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26)
+-  runtime IC 442 -> Item 333: Function "updateAnswer" (location: (source ID: 35, lines: 29..37, bytes: 813..1111), hits: 26)
+-  runtime IC 928 -> Item 334: Line (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26)
+-  runtime IC 928 -> Item 335: Statement (location: (source ID: 35, lines: 30..31, bytes: 868..890), hits: 26)
+-  runtime IC 935 -> Item 336: Line (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26)
+-  runtime IC 935 -> Item 337: Statement (location: (source ID: 35, lines: 31..32, bytes: 900..933), hits: 26)
+-  runtime IC 942 -> Item 338: Line (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26)
+-  runtime IC 942 -> Item 339: Statement (location: (source ID: 35, lines: 32..33, bytes: 943..956), hits: 26)
+-  runtime IC 965 -> Item 340: Line (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26)
+-  runtime IC 965 -> Item 341: Statement (location: (source ID: 35, lines: 33..34, bytes: 966..998), hits: 26)
+-  runtime IC 989 -> Item 342: Line (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26)
+-  runtime IC 989 -> Item 343: Statement (location: (source ID: 35, lines: 34..35, bytes: 1008..1051), hits: 26)
+-  runtime IC 1013 -> Item 344: Line (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26)
+-  runtime IC 1013 -> Item 345: Statement (location: (source ID: 35, lines: 35..36, bytes: 1061..1104), hits: 26)
+-  runtime IC 212 -> Item 346: Line (location: (source ID: 35, lines: 38..46, bytes: 1117..1469), hits: 0)
+-  runtime IC 212 -> Item 347: Function "updateRoundData" (location: (source ID: 35, lines: 38..46, bytes: 1117..1469), hits: 0)
+-  runtime IC 618 -> Item 348: Line (location: (source ID: 35, lines: 39..40, bytes: 1232..1254), hits: 0)
+-  runtime IC 618 -> Item 349: Statement (location: (source ID: 35, lines: 39..40, bytes: 1232..1254), hits: 0)
+-  runtime IC 637 -> Item 350: Line (location: (source ID: 35, lines: 40..41, bytes: 1264..1286), hits: 0)
+-  runtime IC 637 -> Item 351: Statement (location: (source ID: 35, lines: 40..41, bytes: 1264..1286), hits: 0)
+-  runtime IC 644 -> Item 352: Line (location: (source ID: 35, lines: 41..42, bytes: 1296..1324), hits: 0)
+-  runtime IC 644 -> Item 353: Statement (location: (source ID: 35, lines: 41..42, bytes: 1296..1324), hits: 0)
+-  runtime IC 651 -> Item 354: Line (location: (source ID: 35, lines: 42..43, bytes: 1334..1366), hits: 0)
+-  runtime IC 651 -> Item 355: Statement (location: (source ID: 35, lines: 42..43, bytes: 1334..1366), hits: 0)
+-  runtime IC 675 -> Item 356: Line (location: (source ID: 35, lines: 43..44, bytes: 1376..1414), hits: 0)
+-  runtime IC 675 -> Item 357: Statement (location: (source ID: 35, lines: 43..44, bytes: 1376..1414), hits: 0)
+-  runtime IC 699 -> Item 358: Line (location: (source ID: 35, lines: 44..45, bytes: 1424..1462), hits: 0)
+-  runtime IC 699 -> Item 359: Statement (location: (source ID: 35, lines: 44..45, bytes: 1424..1462), hits: 0)
+-  runtime IC 390 -> Item 360: Line (location: (source ID: 35, lines: 47..54, bytes: 1475..1771), hits: 0)
+-  runtime IC 390 -> Item 361: Function "getRoundData" (location: (source ID: 35, lines: 47..54, bytes: 1475..1771), hits: 0)
+-  runtime IC 817 -> Item 362: Line (location: (source ID: 35, lines: 52..53, bytes: 1668..1764), hits: 0)
+-  runtime IC 817 -> Item 363: Statement (location: (source ID: 35, lines: 52..53, bytes: 1668..1764), hits: 0)
+-  runtime IC 566 -> Item 364: Line (location: (source ID: 35, lines: 55..68, bytes: 1777..2162), hits: 16)
+-  runtime IC 566 -> Item 365: Function "latestRoundData" (location: (source ID: 35, lines: 55..68, bytes: 1777..2162), hits: 16)
+-  runtime IC 1087 -> Item 366: Line (location: (source ID: 35, lines: 60..67, bytes: 1958..2155), hits: 16)
+-  runtime IC 1087 -> Item 367: Statement (location: (source ID: 35, lines: 60..67, bytes: 1958..2155), hits: 16)
+-  runtime IC 330 -> Item 368: Line (location: (source ID: 35, lines: 69..72, bytes: 2168..2286), hits: 0)
+-  runtime IC 330 -> Item 369: Function "description" (location: (source ID: 35, lines: 69..72, bytes: 2168..2286), hits: 0)
+-  runtime IC 747 -> Item 370: Line (location: (source ID: 35, lines: 70..71, bytes: 2239..2279), hits: 0)
+-  runtime IC 747 -> Item 371: Statement (location: (source ID: 35, lines: 70..71, bytes: 2239..2279), hits: 0)
+
+Anchors for Contract "ERC20Mock" (solc 0.8.30, source ID 34):
+- creation IC 5 -> Item 314: Line (location: (source ID: 34, lines: 7..15, bytes: 174..388), hits: 27)
+- creation IC 5 -> Item 315: Function "constructor" (location: (source ID: 34, lines: 7..15, bytes: 174..388), hits: 27)
+- creation IC 86 -> Item 316: Line (location: (source ID: 34, lines: 13..14, bytes: 344..381), hits: 27)
+- creation IC 86 -> Item 317: Statement (location: (source ID: 34, lines: 13..14, bytes: 344..381), hits: 27)
+-  runtime IC 357 -> Item 318: Line (location: (source ID: 34, lines: 16..19, bytes: 394..489), hits: 14)
+-  runtime IC 357 -> Item 319: Function "mint" (location: (source ID: 34, lines: 16..19, bytes: 394..489), hits: 14)
+-  runtime IC 829 -> Item 320: Line (location: (source ID: 34, lines: 17..18, bytes: 460..482), hits: 14)
+-  runtime IC 829 -> Item 321: Statement (location: (source ID: 34, lines: 17..18, bytes: 460..482), hits: 14)
+-  runtime IC 463 -> Item 322: Line (location: (source ID: 34, lines: 20..23, bytes: 495..590), hits: 0)
+-  runtime IC 463 -> Item 323: Function "burn" (location: (source ID: 34, lines: 20..23, bytes: 495..590), hits: 0)
+-  runtime IC 1056 -> Item 324: Line (location: (source ID: 34, lines: 21..22, bytes: 561..583), hits: 0)
+-  runtime IC 1056 -> Item 325: Statement (location: (source ID: 34, lines: 21..22, bytes: 561..583), hits: 0)
+
+Anchors for Contract "DeployDSC" (solc 0.8.30, source ID 30):
+-  runtime IC 126 -> Item 0: Line (location: (source ID: 30, lines: 13..31, bytes: 392..1071), hits: 13)
+-  runtime IC 126 -> Item 1: Function "run" (location: (source ID: 30, lines: 13..31, bytes: 392..1071), hits: 13)
+-  runtime IC 299 -> Item 2: Line (location: (source ID: 30, lines: 14..15, bytes: 485..525), hits: 13)
+-  runtime IC 299 -> Item 3: Statement (location: (source ID: 30, lines: 14..15, bytes: 485..525), hits: 13)
+-  runtime IC 300 -> Item 4: Statement (location: (source ID: 30, lines: 14..15, bytes: 507..525), hits: 13)
+-  runtime IC 340 -> Item 5: Line (location: (source ID: 30, lines: 15..16, bytes: 535..647), hits: 13)
+-  runtime IC 340 -> Item 6: Statement (location: (source ID: 30, lines: 15..16, bytes: 535..647), hits: 13)
+-  runtime IC 344 -> Item 7: Statement (location: (source ID: 30, lines: 15..16, bytes: 619..647), hits: 13)
+-  runtime IC 462 -> Item 8: Line (location: (source ID: 30, lines: 17..18, bytes: 658..687), hits: 13)
+-  runtime IC 462 -> Item 9: Statement (location: (source ID: 30, lines: 17..18, bytes: 658..687), hits: 13)
+-  runtime IC 588 -> Item 10: Line (location: (source ID: 30, lines: 18..19, bytes: 697..754), hits: 13)
+-  runtime IC 588 -> Item 11: Statement (location: (source ID: 30, lines: 18..19, bytes: 697..754), hits: 13)
+-  runtime IC 735 -> Item 12: Line (location: (source ID: 30, lines: 20..21, bytes: 765..784), hits: 13)
+-  runtime IC 735 -> Item 13: Statement (location: (source ID: 30, lines: 20..21, bytes: 765..784), hits: 13)
+-  runtime IC 825 -> Item 14: Line (location: (source ID: 30, lines: 22..23, bytes: 795..854), hits: 13)
+-  runtime IC 825 -> Item 15: Statement (location: (source ID: 30, lines: 22..23, bytes: 795..854), hits: 13)
+-  runtime IC 826 -> Item 16: Statement (location: (source ID: 30, lines: 22..23, bytes: 825..854), hits: 13)
+-  runtime IC 866 -> Item 17: Line (location: (source ID: 30, lines: 23..24, bytes: 864..947), hits: 13)
+-  runtime IC 866 -> Item 18: Statement (location: (source ID: 30, lines: 23..24, bytes: 864..947), hits: 13)
+-  runtime IC 867 -> Item 19: Statement (location: (source ID: 30, lines: 23..24, bytes: 883..947), hits: 13)
+-  runtime IC 924 -> Item 20: Line (location: (source ID: 30, lines: 25..26, bytes: 958..996), hits: 13)
+-  runtime IC 924 -> Item 21: Statement (location: (source ID: 30, lines: 25..26, bytes: 958..996), hits: 13)
+-  runtime IC 1047 -> Item 22: Line (location: (source ID: 30, lines: 27..28, bytes: 1007..1025), hits: 13)
+-  runtime IC 1047 -> Item 23: Statement (location: (source ID: 30, lines: 27..28, bytes: 1007..1025), hits: 13)
+-  runtime IC 1137 -> Item 24: Line (location: (source ID: 30, lines: 29..30, bytes: 1036..1064), hits: 13)
+-  runtime IC 1137 -> Item 25: Statement (location: (source ID: 30, lines: 29..30, bytes: 1036..1064), hits: 13)
+
+Anchors for Contract "DSCEngine" (solc 0.8.30, source ID 32):
+- creation IC 5 -> Item 79: Line (location: (source ID: 32, lines: 76..91, bytes: 3618..4265), hits: 14)
+- creation IC 5 -> Item 80: Function "constructor" (location: (source ID: 32, lines: 76..91, bytes: 3618..4265), hits: 14)
+- creation IC 86 -> Item 81: Line (location: (source ID: 32, lines: 82..83, bytes: 3871..3921), hits: 14)
+- creation IC 86 -> Item 82: Statement (location: (source ID: 32, lines: 82..83, bytes: 3871..3921), hits: 14)
+- creation IC 95 -> Item 83: Branch (branch: 2, path: 0) (location: (source ID: 32, lines: 82..85, bytes: 3923..4009), hits: 1)
+- creation IC 95 -> Item 84: Line (location: (source ID: 32, lines: 83..84, bytes: 3937..3998), hits: 1)
+- creation IC 95 -> Item 85: Statement (location: (source ID: 32, lines: 83..84, bytes: 3937..3998), hits: 1)
+- creation IC 145 -> Item 86: Line (location: (source ID: 32, lines: 85..86, bytes: 4023..4036), hits: 13)
+- creation IC 145 -> Item 87: Statement (location: (source ID: 32, lines: 85..86, bytes: 4023..4036), hits: 13)
+- creation IC 150 -> Item 88: Statement (location: (source ID: 32, lines: 85..86, bytes: 4038..4063), hits: 39)
+- creation IC 455 -> Item 89: Statement (location: (source ID: 32, lines: 85..86, bytes: 4065..4068), hits: 26)
+- creation IC 159 -> Item 90: Line (location: (source ID: 32, lines: 86..87, bytes: 4084..4139), hits: 26)
+- creation IC 159 -> Item 91: Statement (location: (source ID: 32, lines: 86..87, bytes: 4084..4139), hits: 26)
+- creation IC 333 -> Item 92: Line (location: (source ID: 32, lines: 87..88, bytes: 4153..4195), hits: 26)
+- creation IC 333 -> Item 93: Statement (location: (source ID: 32, lines: 87..88, bytes: 4153..4195), hits: 26)
+- creation IC 469 -> Item 94: Line (location: (source ID: 32, lines: 89..90, bytes: 4215..4258), hits: 13)
+- creation IC 469 -> Item 95: Statement (location: (source ID: 32, lines: 89..90, bytes: 4215..4258), hits: 13)
+-  runtime IC 583 -> Item 65: Line (location: (source ID: 32, lines: 61..67, bytes: 3123..3265), hits: 1)
+-  runtime IC 583 -> Item 66: Function "moreThanZero" (location: (source ID: 32, lines: 61..67, bytes: 3123..3265), hits: 1)
+-  runtime IC 583 -> Item 67: Line (location: (source ID: 32, lines: 62..63, bytes: 3174..3185), hits: 1)
+-  runtime IC 583 -> Item 68: Statement (location: (source ID: 32, lines: 62..63, bytes: 3174..3185), hits: 1)
+-  runtime IC 590 -> Item 69: Branch (branch: 0, path: 0) (location: (source ID: 32, lines: 62..65, bytes: 3187..3248), hits: 1)
+-  runtime IC 590 -> Item 70: Line (location: (source ID: 32, lines: 63..64, bytes: 3201..3237), hits: 1)
+-  runtime IC 590 -> Item 71: Statement (location: (source ID: 32, lines: 63..64, bytes: 3201..3237), hits: 1)
+-  runtime IC 1310 -> Item 72: Line (location: (source ID: 32, lines: 68..74, bytes: 3343..3507), hits: 9)
+-  runtime IC 1310 -> Item 73: Function "isAllowedToken" (location: (source ID: 32, lines: 68..74, bytes: 3343..3507), hits: 9)
+-  runtime IC 1310 -> Item 74: Line (location: (source ID: 32, lines: 69..70, bytes: 3395..3428), hits: 9)
+-  runtime IC 1310 -> Item 75: Statement (location: (source ID: 32, lines: 69..70, bytes: 3395..3428), hits: 9)
+-  runtime IC 1452 -> Item 76: Branch (branch: 1, path: 0) (location: (source ID: 32, lines: 69..72, bytes: 3430..3490), hits: 1)
+-  runtime IC 1452 -> Item 77: Line (location: (source ID: 32, lines: 70..71, bytes: 3444..3479), hits: 1)
+-  runtime IC 1452 -> Item 78: Statement (location: (source ID: 32, lines: 70..71, bytes: 3444..3479), hits: 1)
+-  runtime IC 497 -> Item 96: Line (location: (source ID: 32, lines: 94..102, bytes: 4402..4671), hits: 1)
+-  runtime IC 497 -> Item 97: Function "depositCollateralAndMintDsc" (location: (source ID: 32, lines: 94..102, bytes: 4402..4671), hits: 1)
+-  runtime IC 2956 -> Item 98: Line (location: (source ID: 32, lines: 99..100, bytes: 4571..4630), hits: 1)
+-  runtime IC 2956 -> Item 99: Statement (location: (source ID: 32, lines: 99..100, bytes: 4571..4630), hits: 1)
+-  runtime IC 2966 -> Item 100: Line (location: (source ID: 32, lines: 100..101, bytes: 4640..4664), hits: 0)
+-  runtime IC 2966 -> Item 101: Statement (location: (source ID: 32, lines: 100..101, bytes: 4640..4664), hits: 0)
+-  runtime IC 286 -> Item 102: Line (location: (source ID: 32, lines: 106..117, bytes: 4922..5496), hits: 10)
+-  runtime IC 286 -> Item 103: Function "depositCollateral" (location: (source ID: 32, lines: 106..117, bytes: 4922..5496), hits: 10)
+-  runtime IC 1510 -> Item 104: Line (location: (source ID: 32, lines: 110..111, bytes: 5129..5206), hits: 8)
+-  runtime IC 1510 -> Item 105: Statement (location: (source ID: 32, lines: 110..111, bytes: 5129..5206), hits: 8)
+-  runtime IC 1652 -> Item 106: Line (location: (source ID: 32, lines: 111..112, bytes: 5216..5294), hits: 8)
+-  runtime IC 1652 -> Item 107: Statement (location: (source ID: 32, lines: 111..112, bytes: 5216..5294), hits: 8)
+-  runtime IC 1753 -> Item 108: Line (location: (source ID: 32, lines: 112..113, bytes: 5304..5407), hits: 8)
+-  runtime IC 1753 -> Item 109: Statement (location: (source ID: 32, lines: 112..113, bytes: 5304..5407), hits: 8)
+-  runtime IC 1754 -> Item 110: Statement (location: (source ID: 32, lines: 112..113, bytes: 5319..5407), hits: 8)
+-  runtime IC 1881 -> Item 111: Line (location: (source ID: 32, lines: 113..114, bytes: 5421..5429), hits: 8)
+-  runtime IC 1881 -> Item 112: Statement (location: (source ID: 32, lines: 113..114, bytes: 5421..5429), hits: 8)
+-  runtime IC 1886 -> Item 113: Branch (branch: 3, path: 0) (location: (source ID: 32, lines: 113..116, bytes: 5431..5490), hits: 0)
+-  runtime IC 1886 -> Item 114: Line (location: (source ID: 32, lines: 114..115, bytes: 5445..5479), hits: 0)
+-  runtime IC 1886 -> Item 115: Statement (location: (source ID: 32, lines: 114..115, bytes: 5445..5479), hits: 0)
+-  runtime IC 469 -> Item 116: Line (location: (source ID: 32, lines: 119..128, bytes: 5608..5994), hits: 5)
+-  runtime IC 469 -> Item 117: Function "mintDsc" (location: (source ID: 32, lines: 119..128, bytes: 5608..5994), hits: 5)
+-  runtime IC 2638 -> Item 118: Line (location: (source ID: 32, lines: 120..121, bytes: 5710..5752), hits: 4)
+-  runtime IC 2638 -> Item 119: Statement (location: (source ID: 32, lines: 120..121, bytes: 5710..5752), hits: 4)
+-  runtime IC 2721 -> Item 120: Line (location: (source ID: 32, lines: 122..123, bytes: 5807..5848), hits: 4)
+-  runtime IC 2721 -> Item 121: Statement (location: (source ID: 32, lines: 122..123, bytes: 5807..5848), hits: 4)
+-  runtime IC 2730 -> Item 122: Line (location: (source ID: 32, lines: 123..124, bytes: 5858..5911), hits: 4)
+-  runtime IC 2730 -> Item 123: Statement (location: (source ID: 32, lines: 123..124, bytes: 5858..5911), hits: 4)
+-  runtime IC 2731 -> Item 124: Statement (location: (source ID: 32, lines: 123..124, bytes: 5872..5911), hits: 4)
+-  runtime IC 2888 -> Item 125: Line (location: (source ID: 32, lines: 124..125, bytes: 5924..5931), hits: 4)
+-  runtime IC 2888 -> Item 126: Statement (location: (source ID: 32, lines: 124..125, bytes: 5924..5931), hits: 4)
+-  runtime IC 2893 -> Item 127: Branch (branch: 4, path: 0) (location: (source ID: 32, lines: 124..127, bytes: 5933..5988), hits: 0)
+-  runtime IC 2893 -> Item 128: Line (location: (source ID: 32, lines: 125..126, bytes: 5947..5977), hits: 0)
+-  runtime IC 2893 -> Item 129: Statement (location: (source ID: 32, lines: 125..126, bytes: 5947..5977), hits: 0)
+-  runtime IC 525 -> Item 130: Line (location: (source ID: 32, lines: 131..136, bytes: 6129..6383), hits: 0)
+-  runtime IC 525 -> Item 131: Function "redeemCollateralForDsc" (location: (source ID: 32, lines: 131..136, bytes: 6129..6383), hits: 0)
+-  runtime IC 2980 -> Item 132: Line (location: (source ID: 32, lines: 133..134, bytes: 6276..6300), hits: 0)
+-  runtime IC 2980 -> Item 133: Statement (location: (source ID: 32, lines: 133..134, bytes: 6276..6300), hits: 0)
+-  runtime IC 2989 -> Item 134: Line (location: (source ID: 32, lines: 134..135, bytes: 6314..6372), hits: 0)
+-  runtime IC 2989 -> Item 135: Statement (location: (source ID: 32, lines: 134..135, bytes: 6314..6372), hits: 0)
+-  runtime IC 258 -> Item 136: Line (location: (source ID: 32, lines: 140..145, bytes: 6560..6867), hits: 1)
+-  runtime IC 258 -> Item 137: Function "redeemCollateral" (location: (source ID: 32, lines: 140..145, bytes: 6560..6867), hits: 1)
+-  runtime IC 1217 -> Item 138: Line (location: (source ID: 32, lines: 142..143, bytes: 6718..6801), hits: 0)
+-  runtime IC 1217 -> Item 139: Statement (location: (source ID: 32, lines: 142..143, bytes: 6718..6801), hits: 0)
+-  runtime IC 1229 -> Item 140: Line (location: (source ID: 32, lines: 143..144, bytes: 6815..6856), hits: 0)
+-  runtime IC 1229 -> Item 141: Statement (location: (source ID: 32, lines: 143..144, bytes: 6815..6856), hits: 0)
+-  runtime IC 553 -> Item 142: Line (location: (source ID: 32, lines: 148..152, bytes: 6982..7144), hits: 1)
+-  runtime IC 553 -> Item 143: Function "burnDsc" (location: (source ID: 32, lines: 148..152, bytes: 6982..7144), hits: 1)
+-  runtime IC 3070 -> Item 144: Line (location: (source ID: 32, lines: 149..150, bytes: 7066..7106), hits: 0)
+-  runtime IC 3070 -> Item 145: Statement (location: (source ID: 32, lines: 149..150, bytes: 7066..7106), hits: 0)
+-  runtime IC 182 -> Item 146: Line (location: (source ID: 32, lines: 154..174, bytes: 7256..8318), hits: 1)
+-  runtime IC 182 -> Item 147: Function "liquidate" (location: (source ID: 32, lines: 154..174, bytes: 7256..8318), hits: 1)
+-  runtime IC 648 -> Item 148: Line (location: (source ID: 32, lines: 156..157, bytes: 7401..7455), hits: 0)
+-  runtime IC 648 -> Item 149: Statement (location: (source ID: 32, lines: 156..157, bytes: 7401..7455), hits: 0)
+-  runtime IC 649 -> Item 150: Statement (location: (source ID: 32, lines: 156..157, bytes: 7436..7455), hits: 0)
+-  runtime IC 669 -> Item 151: Line (location: (source ID: 32, lines: 157..158, bytes: 7472..7517), hits: 0)
+-  runtime IC 669 -> Item 152: Statement (location: (source ID: 32, lines: 157..158, bytes: 7472..7517), hits: 0)
+-  runtime IC 675 -> Item 153: Branch (branch: 5, path: 0) (location: (source ID: 32, lines: 157..160, bytes: 7519..7586), hits: 0)
+-  runtime IC 675 -> Item 154: Line (location: (source ID: 32, lines: 158..159, bytes: 7537..7571), hits: 0)
+-  runtime IC 675 -> Item 155: Statement (location: (source ID: 32, lines: 158..159, bytes: 7537..7571), hits: 0)
+-  runtime IC 725 -> Item 156: Line (location: (source ID: 32, lines: 160..161, bytes: 7599..7682), hits: 0)
+-  runtime IC 725 -> Item 157: Statement (location: (source ID: 32, lines: 160..161, bytes: 7599..7682), hits: 0)
+-  runtime IC 726 -> Item 158: Statement (location: (source ID: 32, lines: 160..161, bytes: 7636..7682), hits: 0)
+-  runtime IC 738 -> Item 159: Line (location: (source ID: 32, lines: 162..163, bytes: 7725..7823), hits: 0)
+-  runtime IC 738 -> Item 160: Statement (location: (source ID: 32, lines: 162..163, bytes: 7725..7823), hits: 0)
+-  runtime IC 743 -> Item 161: Statement (location: (source ID: 32, lines: 162..163, bytes: 7751..7823), hits: 0)
+-  runtime IC 766 -> Item 162: Line (location: (source ID: 32, lines: 163..164, bytes: 7837..7915), hits: 0)
+-  runtime IC 766 -> Item 163: Statement (location: (source ID: 32, lines: 163..164, bytes: 7837..7915), hits: 0)
+-  runtime IC 767 -> Item 164: Statement (location: (source ID: 32, lines: 163..164, bytes: 7871..7915), hits: 0)
+-  runtime IC 781 -> Item 165: Line (location: (source ID: 32, lines: 164..165, bytes: 7929..8001), hits: 0)
+-  runtime IC 781 -> Item 166: Statement (location: (source ID: 32, lines: 164..165, bytes: 7929..8001), hits: 0)
+-  runtime IC 793 -> Item 167: Line (location: (source ID: 32, lines: 166..167, bytes: 8016..8055), hits: 0)
+-  runtime IC 793 -> Item 168: Statement (location: (source ID: 32, lines: 166..167, bytes: 8016..8055), hits: 0)
+-  runtime IC 804 -> Item 169: Line (location: (source ID: 32, lines: 168..169, bytes: 8070..8118), hits: 0)
+-  runtime IC 804 -> Item 170: Statement (location: (source ID: 32, lines: 168..169, bytes: 8070..8118), hits: 0)
+-  runtime IC 805 -> Item 171: Statement (location: (source ID: 32, lines: 168..169, bytes: 8099..8118), hits: 0)
+-  runtime IC 816 -> Item 172: Line (location: (source ID: 32, lines: 169..170, bytes: 8135..8181), hits: 0)
+-  runtime IC 816 -> Item 173: Statement (location: (source ID: 32, lines: 169..170, bytes: 8135..8181), hits: 0)
+-  runtime IC 823 -> Item 174: Branch (branch: 6, path: 0) (location: (source ID: 32, lines: 169..172, bytes: 8183..8259), hits: 0)
+-  runtime IC 823 -> Item 175: Line (location: (source ID: 32, lines: 170..171, bytes: 8201..8244), hits: 0)
+-  runtime IC 823 -> Item 176: Statement (location: (source ID: 32, lines: 170..171, bytes: 8201..8244), hits: 0)
+-  runtime IC 873 -> Item 177: Line (location: (source ID: 32, lines: 172..173, bytes: 8272..8307), hits: 0)
+-  runtime IC 873 -> Item 178: Statement (location: (source ID: 32, lines: 172..173, bytes: 8272..8307), hits: 0)
+-  runtime IC 314 -> Item 179: Line (location: (source ID: 32, lines: 176..177, bytes: 8430..8473), hits: 0)
+-  runtime IC 314 -> Item 180: Function "getHealthFactor" (location: (source ID: 32, lines: 176..177, bytes: 8430..8473), hits: 0)
+-  runtime IC 4222 -> Item 181: Line (location: (source ID: 32, lines: 181..186, bytes: 8647..8905), hits: 6)
+-  runtime IC 4222 -> Item 182: Function "_getAccountInformation" (location: (source ID: 32, lines: 181..186, bytes: 8647..8905), hits: 6)
+-  runtime IC 4225 -> Item 183: Line (location: (source ID: 32, lines: 183..184, bytes: 8792..8826), hits: 6)
+-  runtime IC 4225 -> Item 184: Statement (location: (source ID: 32, lines: 183..184, bytes: 8792..8826), hits: 6)
+-  runtime IC 4289 -> Item 185: Line (location: (source ID: 32, lines: 184..185, bytes: 8840..8894), hits: 6)
+-  runtime IC 4289 -> Item 186: Statement (location: (source ID: 32, lines: 184..185, bytes: 8840..8894), hits: 6)
+-  runtime IC 3211 -> Item 187: Line (location: (source ID: 32, lines: 188..197, bytes: 8962..9458), hits: 0)
+-  runtime IC 3211 -> Item 188: Function "_redeemCollateral" (location: (source ID: 32, lines: 188..197, bytes: 8962..9458), hits: 0)
+-  runtime IC 3212 -> Item 189: Line (location: (source ID: 32, lines: 190..191, bytes: 9103..9174), hits: 0)
+-  runtime IC 3212 -> Item 190: Statement (location: (source ID: 32, lines: 190..191, bytes: 9103..9174), hits: 0)
+-  runtime IC 3354 -> Item 191: Line (location: (source ID: 32, lines: 191..192, bytes: 9188..9263), hits: 0)
+-  runtime IC 3354 -> Item 192: Statement (location: (source ID: 32, lines: 191..192, bytes: 9188..9263), hits: 0)
+-  runtime IC 3478 -> Item 193: Line (location: (source ID: 32, lines: 192..193, bytes: 9277..9353), hits: 0)
+-  runtime IC 3478 -> Item 194: Statement (location: (source ID: 32, lines: 192..193, bytes: 9277..9353), hits: 0)
+-  runtime IC 3479 -> Item 195: Statement (location: (source ID: 32, lines: 192..193, bytes: 9292..9353), hits: 0)
+-  runtime IC 3604 -> Item 196: Line (location: (source ID: 32, lines: 193..194, bytes: 9371..9379), hits: 0)
+-  runtime IC 3604 -> Item 197: Statement (location: (source ID: 32, lines: 193..194, bytes: 9371..9379), hits: 0)
+-  runtime IC 3609 -> Item 198: Branch (branch: 7, path: 0) (location: (source ID: 32, lines: 193..196, bytes: 9381..9448), hits: 0)
+-  runtime IC 3609 -> Item 199: Line (location: (source ID: 32, lines: 194..195, bytes: 9399..9433), hits: 0)
+-  runtime IC 3609 -> Item 200: Statement (location: (source ID: 32, lines: 194..195, bytes: 9399..9433), hits: 0)
+-  runtime IC 3665 -> Item 201: Line (location: (source ID: 32, lines: 200..208, bytes: 9517..9867), hits: 0)
+-  runtime IC 3665 -> Item 202: Function "_burnDsc" (location: (source ID: 32, lines: 200..208, bytes: 9517..9867), hits: 0)
+-  runtime IC 3666 -> Item 203: Line (location: (source ID: 32, lines: 201..202, bytes: 9615..9657), hits: 0)
+-  runtime IC 3666 -> Item 204: Statement (location: (source ID: 32, lines: 201..202, bytes: 9615..9657), hits: 0)
+-  runtime IC 3749 -> Item 205: Line (location: (source ID: 32, lines: 202..203, bytes: 9667..9741), hits: 0)
+-  runtime IC 3749 -> Item 206: Statement (location: (source ID: 32, lines: 202..203, bytes: 9667..9741), hits: 0)
+-  runtime IC 3750 -> Item 207: Statement (location: (source ID: 32, lines: 202..203, bytes: 9682..9741), hits: 0)
+-  runtime IC 3909 -> Item 208: Line (location: (source ID: 32, lines: 203..204, bytes: 9755..9763), hits: 0)
+-  runtime IC 3909 -> Item 209: Statement (location: (source ID: 32, lines: 203..204, bytes: 9755..9763), hits: 0)
+-  runtime IC 3914 -> Item 210: Branch (branch: 8, path: 0) (location: (source ID: 32, lines: 203..206, bytes: 9765..9824), hits: 0)
+-  runtime IC 3914 -> Item 211: Line (location: (source ID: 32, lines: 204..205, bytes: 9779..9813), hits: 0)
+-  runtime IC 3914 -> Item 212: Statement (location: (source ID: 32, lines: 204..205, bytes: 9779..9813), hits: 0)
+-  runtime IC 3964 -> Item 213: Line (location: (source ID: 32, lines: 206..207, bytes: 9833..9860), hits: 0)
+-  runtime IC 3964 -> Item 214: Statement (location: (source ID: 32, lines: 206..207, bytes: 9833..9860), hits: 0)
+-  runtime IC 3126 -> Item 215: Line (location: (source ID: 32, lines: 211..219, bytes: 9954..10464), hits: 4)
+-  runtime IC 3126 -> Item 216: Function "_healthFactor" (location: (source ID: 32, lines: 211..219, bytes: 9954..10464), hits: 4)
+-  runtime IC 3128 -> Item 217: Line (location: (source ID: 32, lines: 214..215, bytes: 10092..10177), hits: 4)
+-  runtime IC 3128 -> Item 218: Statement (location: (source ID: 32, lines: 214..215, bytes: 10092..10177), hits: 4)
+-  runtime IC 3130 -> Item 219: Statement (location: (source ID: 32, lines: 214..215, bytes: 10149..10177), hits: 4)
+-  runtime IC 3143 -> Item 220: Line (location: (source ID: 32, lines: 215..216, bytes: 10187..10298), hits: 4)
+-  runtime IC 3143 -> Item 221: Statement (location: (source ID: 32, lines: 215..216, bytes: 10187..10298), hits: 4)
+-  runtime IC 3148 -> Item 222: Statement (location: (source ID: 32, lines: 215..216, bytes: 10228..10298), hits: 4)
+-  runtime IC 3171 -> Item 223: Line (location: (source ID: 32, lines: 216..217, bytes: 10331..10398), hits: 4)
+-  runtime IC 3171 -> Item 224: Statement (location: (source ID: 32, lines: 216..217, bytes: 10331..10398), hits: 4)
+-  runtime IC 3171 -> Item 225: Statement (location: (source ID: 32, lines: 216..217, bytes: 10337..10398), hits: 4)
+-  runtime IC 4103 -> Item 226: Line (location: (source ID: 32, lines: 224..230, bytes: 10625..10886), hits: 4)
+-  runtime IC 4103 -> Item 227: Function "_revertIfHealthFactorIsBroken" (location: (source ID: 32, lines: 224..230, bytes: 10625..10886), hits: 4)
+-  runtime IC 4104 -> Item 228: Line (location: (source ID: 32, lines: 225..226, bytes: 10702..10748), hits: 4)
+-  runtime IC 4104 -> Item 229: Statement (location: (source ID: 32, lines: 225..226, bytes: 10702..10748), hits: 4)
+-  runtime IC 4105 -> Item 230: Statement (location: (source ID: 32, lines: 225..226, bytes: 10729..10748), hits: 4)
+-  runtime IC 4125 -> Item 231: Line (location: (source ID: 32, lines: 226..227, bytes: 10761..10797), hits: 4)
+-  runtime IC 4125 -> Item 232: Statement (location: (source ID: 32, lines: 226..227, bytes: 10761..10797), hits: 4)
+-  runtime IC 4132 -> Item 233: Branch (branch: 9, path: 0) (location: (source ID: 32, lines: 226..229, bytes: 10799..10880), hits: 0)
+-  runtime IC 4132 -> Item 234: Line (location: (source ID: 32, lines: 227..228, bytes: 10813..10869), hits: 0)
+-  runtime IC 4132 -> Item 235: Statement (location: (source ID: 32, lines: 227..228, bytes: 10813..10869), hits: 0)
+-  runtime IC 210 -> Item 236: Line (location: (source ID: 32, lines: 236..244, bytes: 11142..11556), hits: 0)
+-  runtime IC 210 -> Item 237: Function "getAccountCollateralValue" (location: (source ID: 32, lines: 236..244, bytes: 11142..11556), hits: 0)
+-  runtime IC 902 -> Item 238: Line (location: (source ID: 32, lines: 237..238, bytes: 11261..11274), hits: 6)
+-  runtime IC 902 -> Item 239: Statement (location: (source ID: 32, lines: 237..238, bytes: 11261..11274), hits: 6)
+-  runtime IC 907 -> Item 240: Statement (location: (source ID: 32, lines: 237..238, bytes: 11276..11305), hits: 18)
+-  runtime IC 1132 -> Item 241: Statement (location: (source ID: 32, lines: 237..238, bytes: 11307..11310), hits: 12)
+-  runtime IC 920 -> Item 242: Line (location: (source ID: 32, lines: 238..239, bytes: 11326..11363), hits: 12)
+-  runtime IC 920 -> Item 243: Statement (location: (source ID: 32, lines: 238..239, bytes: 11326..11363), hits: 12)
+-  runtime IC 983 -> Item 244: Line (location: (source ID: 32, lines: 239..240, bytes: 11377..11428), hits: 12)
+-  runtime IC 983 -> Item 245: Statement (location: (source ID: 32, lines: 239..240, bytes: 11377..11428), hits: 12)
+-  runtime IC 1107 -> Item 246: Line (location: (source ID: 32, lines: 240..241, bytes: 11442..11497), hits: 12)
+-  runtime IC 1107 -> Item 247: Statement (location: (source ID: 32, lines: 240..241, bytes: 11442..11497), hits: 12)
+-  runtime IC 421 -> Item 250: Line (location: (source ID: 32, lines: 246..255, bytes: 11604..12013), hits: 2)
+-  runtime IC 421 -> Item 251: Function "getUsdValue" (location: (source ID: 32, lines: 246..255, bytes: 11604..12013), hits: 2)
+-  runtime IC 2247 -> Item 252: Line (location: (source ID: 32, lines: 247..248, bytes: 11696..11772), hits: 14)
+-  runtime IC 2247 -> Item 253: Statement (location: (source ID: 32, lines: 247..248, bytes: 11696..11772), hits: 14)
+-  runtime IC 2248 -> Item 254: Statement (location: (source ID: 32, lines: 247..248, bytes: 11730..11772), hits: 14)
+-  runtime IC 2342 -> Item 255: Line (location: (source ID: 32, lines: 248..249, bytes: 11782..11834), hits: 14)
+-  runtime IC 2342 -> Item 256: Statement (location: (source ID: 32, lines: 248..249, bytes: 11782..11834), hits: 14)
+-  runtime IC 2343 -> Item 257: Statement (location: (source ID: 32, lines: 248..249, bytes: 11807..11834), hits: 14)
+-  runtime IC 2458 -> Item 258: Line (location: (source ID: 32, lines: 249..250, bytes: 11847..11857), hits: 14)
+-  runtime IC 2458 -> Item 259: Statement (location: (source ID: 32, lines: 249..250, bytes: 11847..11857), hits: 14)
+-  runtime IC 2465 -> Item 260: Branch (branch: 10, path: 0) (location: (source ID: 32, lines: 249..252, bytes: 11859..11916), hits: 0)
+-  runtime IC 2465 -> Item 261: Line (location: (source ID: 32, lines: 250..251, bytes: 11873..11905), hits: 0)
+-  runtime IC 2465 -> Item 262: Statement (location: (source ID: 32, lines: 250..251, bytes: 11873..11905), hits: 0)
+-  runtime IC 2524 -> Item 263: Line (location: (source ID: 32, lines: 253..254, bytes: 11932..12006), hits: 14)
+-  runtime IC 2524 -> Item 264: Statement (location: (source ID: 32, lines: 253..254, bytes: 11932..12006), hits: 14)
+-  runtime IC 2524 -> Item 265: Statement (location: (source ID: 32, lines: 253..254, bytes: 11939..12006), hits: 14)
+-  runtime IC 324 -> Item 266: Line (location: (source ID: 32, lines: 257..262, bytes: 12059..12406), hits: 2)
+-  runtime IC 324 -> Item 267: Function "getTokenAmountFromUsd" (location: (source ID: 32, lines: 257..262, bytes: 12059..12406), hits: 2)
+-  runtime IC 1954 -> Item 268: Line (location: (source ID: 32, lines: 258..259, bytes: 12169..12245), hits: 2)
+-  runtime IC 1954 -> Item 269: Statement (location: (source ID: 32, lines: 258..259, bytes: 12169..12245), hits: 2)
+-  runtime IC 1955 -> Item 270: Statement (location: (source ID: 32, lines: 258..259, bytes: 12203..12245), hits: 2)
+-  runtime IC 2049 -> Item 271: Line (location: (source ID: 32, lines: 259..260, bytes: 12255..12307), hits: 2)
+-  runtime IC 2049 -> Item 272: Statement (location: (source ID: 32, lines: 259..260, bytes: 12255..12307), hits: 2)
+-  runtime IC 2050 -> Item 273: Statement (location: (source ID: 32, lines: 259..260, bytes: 12280..12307), hits: 2)
+-  runtime IC 2171 -> Item 274: Line (location: (source ID: 32, lines: 260..261, bytes: 12317..12399), hits: 2)
+-  runtime IC 2171 -> Item 275: Statement (location: (source ID: 32, lines: 260..261, bytes: 12317..12399), hits: 2)
+-  runtime IC 2171 -> Item 276: Statement (location: (source ID: 32, lines: 260..261, bytes: 12324..12399), hits: 2)
+-  runtime IC 372 -> Item 277: Line (location: (source ID: 32, lines: 264..268, bytes: 12453..12666), hits: 2)
+-  runtime IC 372 -> Item 278: Function "getAccInfo" (location: (source ID: 32, lines: 264..268, bytes: 12453..12666), hits: 2)
+-  runtime IC 2224 -> Item 279: Line (location: (source ID: 32, lines: 266..267, bytes: 12586..12655), hits: 2)
+-  runtime IC 2224 -> Item 280: Statement (location: (source ID: 32, lines: 266..267, bytes: 12586..12655), hits: 2)
+
+Anchors for Contract "HelperConfig" (solc 0.8.30, source ID 31):
+- creation IC 94 -> Item 26: Line (location: (source ID: 31, lines: 23..30, bytes: 736..948), hits: 13)
+- creation IC 94 -> Item 27: Function "constructor" (location: (source ID: 31, lines: 23..30, bytes: 736..948), hits: 13)
+- creation IC 106 -> Item 28: Line (location: (source ID: 31, lines: 24..25, bytes: 763..788), hits: 13)
+- creation IC 106 -> Item 29: Statement (location: (source ID: 31, lines: 24..25, bytes: 763..788), hits: 13)
+- creation IC 116 -> Item 30: Branch (branch: 0, path: 0) (location: (source ID: 31, lines: 24..27, bytes: 790..862), hits: 0)
+- creation IC 427 -> Item 31: Branch (branch: 0, path: 1) (location: (source ID: 31, lines: 24..29, bytes: 760..942), hits: 13)
+- creation IC 116 -> Item 32: Line (location: (source ID: 31, lines: 25..26, bytes: 804..851), hits: 0)
+- creation IC 116 -> Item 33: Statement (location: (source ID: 31, lines: 25..26, bytes: 804..851), hits: 0)
+- creation IC 428 -> Item 34: Line (location: (source ID: 31, lines: 27..28, bytes: 882..931), hits: 13)
+- creation IC 428 -> Item 35: Statement (location: (source ID: 31, lines: 27..28, bytes: 882..931), hits: 13)
+- creation IC 740 -> Item 36: Line (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0)
+- creation IC 740 -> Item 37: Function "getSepoliaNetworkConfig" (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0)
+- creation IC 749 -> Item 38: Line (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0)
+- creation IC 749 -> Item 39: Statement (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0)
+- creation IC 1097 -> Item 40: Line (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13)
+- creation IC 1097 -> Item 41: Function "getOrCreateAnvilEthConfig" (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13)
+- creation IC 1106 -> Item 42: Line (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13)
+- creation IC 1106 -> Item 43: Statement (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13)
+- creation IC 1192 -> Item 44: Branch (branch: 1, path: 0) (location: (source ID: 31, lines: 42..45, bytes: 1550..1601), hits: 0)
+- creation IC 1192 -> Item 45: Line (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0)
+- creation IC 1192 -> Item 46: Statement (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0)
+- creation IC 1582 -> Item 47: Line (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13)
+- creation IC 1582 -> Item 48: Statement (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13)
+- creation IC 1672 -> Item 49: Line (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13)
+- creation IC 1672 -> Item 50: Statement (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13)
+- creation IC 1681 -> Item 51: Statement (location: (source ID: 31, lines: 48..49, bytes: 1676..1721), hits: 13)
+- creation IC 1732 -> Item 52: Line (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13)
+- creation IC 1732 -> Item 53: Statement (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13)
+- creation IC 1733 -> Item 54: Statement (location: (source ID: 31, lines: 49..50, bytes: 1752..1801), hits: 13)
+- creation IC 1791 -> Item 55: Line (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13)
+- creation IC 1791 -> Item 56: Statement (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13)
+- creation IC 1800 -> Item 57: Statement (location: (source ID: 31, lines: 51..52, bytes: 1847..1892), hits: 13)
+- creation IC 1851 -> Item 58: Line (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13)
+- creation IC 1851 -> Item 59: Statement (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13)
+- creation IC 1852 -> Item 60: Statement (location: (source ID: 31, lines: 52..53, bytes: 1923..1972), hits: 13)
+- creation IC 1931 -> Item 61: Line (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13)
+- creation IC 1931 -> Item 62: Statement (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13)
+- creation IC 2021 -> Item 63: Line (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13)
+- creation IC 2021 -> Item 64: Statement (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13)
+-  runtime IC 198 -> Item 36: Line (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0)
+-  runtime IC 198 -> Item 37: Function "getSepoliaNetworkConfig" (location: (source ID: 31, lines: 31..40, bytes: 954..1404), hits: 0)
+-  runtime IC 1458 -> Item 38: Line (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0)
+-  runtime IC 1458 -> Item 39: Statement (location: (source ID: 31, lines: 32..39, bytes: 1042..1397), hits: 0)
+-  runtime IC 138 -> Item 40: Line (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13)
+-  runtime IC 138 -> Item 41: Function "getOrCreateAnvilEthConfig" (location: (source ID: 31, lines: 41..64, bytes: 1410..2281), hits: 13)
+-  runtime IC 391 -> Item 42: Line (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13)
+-  runtime IC 391 -> Item 43: Statement (location: (source ID: 31, lines: 42..43, bytes: 1498..1548), hits: 13)
+-  runtime IC 477 -> Item 44: Branch (branch: 1, path: 0) (location: (source ID: 31, lines: 42..45, bytes: 1550..1601), hits: 0)
+-  runtime IC 477 -> Item 45: Line (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0)
+-  runtime IC 477 -> Item 46: Statement (location: (source ID: 31, lines: 43..44, bytes: 1564..1590), hits: 0)
+-  runtime IC 867 -> Item 47: Line (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13)
+-  runtime IC 867 -> Item 48: Statement (location: (source ID: 31, lines: 46..47, bytes: 1611..1630), hits: 13)
+-  runtime IC 957 -> Item 49: Line (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13)
+-  runtime IC 957 -> Item 50: Statement (location: (source ID: 31, lines: 48..49, bytes: 1641..1721), hits: 13)
+-  runtime IC 966 -> Item 51: Statement (location: (source ID: 31, lines: 48..49, bytes: 1676..1721), hits: 13)
+-  runtime IC 1017 -> Item 52: Line (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13)
+-  runtime IC 1017 -> Item 53: Statement (location: (source ID: 31, lines: 49..50, bytes: 1731..1801), hits: 13)
+-  runtime IC 1018 -> Item 54: Statement (location: (source ID: 31, lines: 49..50, bytes: 1752..1801), hits: 13)
+-  runtime IC 1076 -> Item 55: Line (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13)
+-  runtime IC 1076 -> Item 56: Statement (location: (source ID: 31, lines: 51..52, bytes: 1812..1892), hits: 13)
+-  runtime IC 1085 -> Item 57: Statement (location: (source ID: 31, lines: 51..52, bytes: 1847..1892), hits: 13)
+-  runtime IC 1136 -> Item 58: Line (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13)
+-  runtime IC 1136 -> Item 59: Statement (location: (source ID: 31, lines: 52..53, bytes: 1902..1972), hits: 13)
+-  runtime IC 1137 -> Item 60: Statement (location: (source ID: 31, lines: 52..53, bytes: 1923..1972), hits: 13)
+-  runtime IC 1216 -> Item 61: Line (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13)
+-  runtime IC 1216 -> Item 62: Statement (location: (source ID: 31, lines: 54..55, bytes: 1983..2001), hits: 13)
+-  runtime IC 1306 -> Item 63: Line (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13)
+-  runtime IC 1306 -> Item 64: Statement (location: (source ID: 31, lines: 56..63, bytes: 2012..2274), hits: 13)
+
+Anchors for Contract "DecentralizedStableCoin" (solc 0.8.30, source ID 33):
+-  runtime IC 481 -> Item 281: Line (location: (source ID: 33, lines: 26..36, bytes: 938..1311), hits: 0)
+-  runtime IC 481 -> Item 282: Function "burn" (location: (source ID: 33, lines: 26..36, bytes: 938..1311), hits: 0)
+-  runtime IC 1216 -> Item 283: Line (location: (source ID: 33, lines: 27..28, bytes: 1006..1045), hits: 0)
+-  runtime IC 1216 -> Item 284: Statement (location: (source ID: 33, lines: 27..28, bytes: 1006..1045), hits: 0)
+-  runtime IC 1217 -> Item 285: Statement (location: (source ID: 33, lines: 27..28, bytes: 1024..1045), hits: 0)
+-  runtime IC 1228 -> Item 286: Line (location: (source ID: 33, lines: 28..29, bytes: 1058..1070), hits: 0)
+-  runtime IC 1228 -> Item 287: Statement (location: (source ID: 33, lines: 28..29, bytes: 1058..1070), hits: 0)
+-  runtime IC 1235 -> Item 288: Branch (branch: 0, path: 0) (location: (source ID: 33, lines: 28..31, bytes: 1072..1155), hits: 0)
+-  runtime IC 1235 -> Item 289: Line (location: (source ID: 33, lines: 29..30, bytes: 1086..1144), hits: 0)
+-  runtime IC 1235 -> Item 290: Statement (location: (source ID: 33, lines: 29..30, bytes: 1086..1144), hits: 0)
+-  runtime IC 1285 -> Item 291: Line (location: (source ID: 33, lines: 31..32, bytes: 1167..1184), hits: 0)
+-  runtime IC 1285 -> Item 292: Statement (location: (source ID: 33, lines: 31..32, bytes: 1167..1184), hits: 0)
+-  runtime IC 1293 -> Item 293: Branch (branch: 1, path: 0) (location: (source ID: 33, lines: 31..34, bytes: 1186..1276), hits: 0)
+-  runtime IC 1293 -> Item 294: Line (location: (source ID: 33, lines: 32..33, bytes: 1200..1265), hits: 0)
+-  runtime IC 1293 -> Item 295: Statement (location: (source ID: 33, lines: 32..33, bytes: 1200..1265), hits: 0)
+-  runtime IC 1343 -> Item 296: Line (location: (source ID: 33, lines: 34..35, bytes: 1285..1304), hits: 0)
+-  runtime IC 1343 -> Item 297: Statement (location: (source ID: 33, lines: 34..35, bytes: 1285..1304), hits: 0)
+-  runtime IC 433 -> Item 298: Line (location: (source ID: 33, lines: 37..47, bytes: 1317..1667), hits: 4)
+-  runtime IC 433 -> Item 299: Function "mint" (location: (source ID: 33, lines: 37..47, bytes: 1317..1667), hits: 4)
+-  runtime IC 1030 -> Item 300: Line (location: (source ID: 33, lines: 38..39, bytes: 1409..1426), hits: 4)
+-  runtime IC 1030 -> Item 301: Statement (location: (source ID: 33, lines: 38..39, bytes: 1409..1426), hits: 4)
+-  runtime IC 1081 -> Item 302: Branch (branch: 2, path: 0) (location: (source ID: 33, lines: 38..41, bytes: 1428..1501), hits: 0)
+-  runtime IC 1081 -> Item 303: Line (location: (source ID: 33, lines: 39..40, bytes: 1442..1490), hits: 0)
+-  runtime IC 1081 -> Item 304: Statement (location: (source ID: 33, lines: 39..40, bytes: 1442..1490), hits: 0)
+-  runtime IC 1131 -> Item 305: Line (location: (source ID: 33, lines: 41..42, bytes: 1514..1526), hits: 4)
+-  runtime IC 1131 -> Item 306: Statement (location: (source ID: 33, lines: 41..42, bytes: 1514..1526), hits: 4)
+-  runtime IC 1138 -> Item 307: Branch (branch: 3, path: 0) (location: (source ID: 33, lines: 41..44, bytes: 1528..1611), hits: 0)
+-  runtime IC 1138 -> Item 308: Line (location: (source ID: 33, lines: 42..43, bytes: 1542..1600), hits: 0)
+-  runtime IC 1138 -> Item 309: Statement (location: (source ID: 33, lines: 42..43, bytes: 1542..1600), hits: 0)
+-  runtime IC 1188 -> Item 310: Line (location: (source ID: 33, lines: 44..45, bytes: 1620..1639), hits: 4)
+-  runtime IC 1188 -> Item 311: Statement (location: (source ID: 33, lines: 44..45, bytes: 1620..1639), hits: 4)
+-  runtime IC 1198 -> Item 312: Line (location: (source ID: 33, lines: 45..46, bytes: 1649..1660), hits: 4)
+-  runtime IC 1198 -> Item 313: Statement (location: (source ID: 33, lines: 45..46, bytes: 1649..1660), hits: 4)
+
