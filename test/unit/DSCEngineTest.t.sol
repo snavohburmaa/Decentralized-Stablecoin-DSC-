@@ -34,7 +34,7 @@ contract DSCEngineTest is Test {
         (ethUsdPriceFeed, btcUsdPriceFeed, weth,,) = config.activeNetworkConfig();
         ERC20Mock(weth).mint(USER, STARTING_ERC20_BALANCE);
     }
-//----------------------------------------------------------------------------------------------------------------// 
+//---------------------------------------------------------------------------------------------------------------// 
 
     //modifiers
 
