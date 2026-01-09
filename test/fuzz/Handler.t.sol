@@ -138,7 +138,7 @@ contract Handler is Test {
         ethUsdPriceFeed.updateAnswer(newPriceInt);
     }
 
-    //helper func
+    //helper function
     function _getCollateralFromSeed(uint256 collateralSeed) private view returns (ERC20Mock) {
         if(collateralSeed % 2 == 0) {
             return weth;
