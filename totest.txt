@@ -1,0 +1,118 @@
+1. Liquidation Edge Cases:
+   - Partial liquidation (covering only part of debt).
+   - Liquidation when liquidator has insufficient DSC balance.
+   - Multiple liquidations on the same unhealthy position.
+   - Liquidation bonus calculation accuracy and transfer to liquidator.
+2. Redeem/Burn Scenarios:
+   - Redeem collateral that would break health factor (should revert).
+   - Redeem more collateral than deposited (should revert).
+   - Burn DSC when user has insufficient balance (should revert).
+   - Burn DSC without redeeming collateral first.
+3. Health Factor Tests:
+   - Calculate health factor with zero collateral (edge case).
+   - Calculate with maximum debt scenarios.
+   - Mint DSC when it would break health factor (should revert).
+   - Health factor improvements after partial redemption.
+4. Calculation Functions:
+   - getUsdValue: Edge cases with zero amounts, large values.
+   - getTokenAmountFromUsd: Division by zero prevention (though guarded).
+   - getAccountCollateralValue: Sum across multiple tokens.
+5. Event Emissions:
+   - Assert CollateralDeposited, CollateralRedeemed, DscMinted, DscBurned events are emitted correctly.
+6. Modifier Tests:
+   - moreThanZero: Revert on zero for all applicable functions.
+   - nonReentrant: Explicit reentrancy attack tests (though guarded).
+7. Getter Functions:
+   - getCollateralTokens, getCollateralPriceFeed, getDsc: Return correct arrays/addresses.
+   - getAccountInformation: Accurate collateral/debt retrieval.
+Integration/Fuzz Expansions
+1. Multi-User Flows:
+   - User A deposits, mints; User B liquidates User A.
+   - Concurrent deposits/mints to test state consistency.
+2. Fuzz Handler Additions:
+   - Include burnDsc and liquidate actions in fuzz tests with bounded parameters.
+   - Test sequences that could break invariants (e.g., unconstrained redeems).
+3. Oracle Failure Scenarios:
+   - Tests with invalid or stale price feeds (via mocks or OracleLib failures).
+
+
+
+
+function testLiquidationFailsWhenLiquidatorHasNoApproval() public {
+    address liquidatedUser = makeAddr("liquidatedUser");
+    
+    // Setup: liquidated user deposits collateral and mints DSC
+    vm.startPrank(liquidatedUser);
+    ERC20Mock(weth).mint(liquidatedUser, AMOUNT_COLLATERAL);
+    ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
+    dsce.depositCollateralAndMintDsc(weth, AMOUNT_COLLATERAL, MINT_AMOUNT);
+    vm.stopPrank();
+    
+    // Setup: liquidator deposits collateral, mints DSC, but doesn't approve
+    vm.startPrank(USER);
+    ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
+    dsce.depositCollateral(weth, AMOUNT_COLLATERAL);
+    dsce.mintDsc(MINT_AMOUNT); // Has enough balance
+    // Intentionally don't approve - dsc.approve(address(dsce), MINT_AMOUNT);
+    vm.stopPrank();
+    
+    // Drop price to make liquidated user's health factor < 1
+    int256 ethUsdNewPrice = 2e8; // $2 (with 8 decimals)
+    MockV3Aggregator(ethUsdPriceFeed).updateAnswer(ethUsdNewPrice);
+    
+    // Verify user is liquidatable
+    uint256 liquidatedUserHealthFactor = dsce.getHealthFactor(liquidatedUser);
+    assert(liquidatedUserHealthFactor < PRECISION, "User should be liquidatable");
+    
+    // Attempt to liquidate - should fail due to lack of approval
+    vm.startPrank(USER);
+    vm.expectRevert(DSCEngine.DSCEngine__TransferFailed.selector);
+    dsce.liquidate(weth, liquidatedUser, MINT_AMOUNT);
+    vm.stopPrank();
+}
+
+function testLiquidationFailsWhenLiquidatorHasPartialApproval() public {
+    address liquidatedUser = makeAddr("liquidatedUser");
+    
+    // Setup: liquidated user deposits collateral and mints DSC
+    vm.startPrank(liquidatedUser);
+    ERC20Mock(weth).mint(liquidatedUser, AMOUNT_COLLATERAL);
+    ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
+    dsce.depositCollateralAndMintDsc(weth, AMOUNT_COLLATERAL, MINT_AMOUNT);
+    vm.stopPrank();
+    
+    // Setup: liquidator deposits collateral, mints DSC, but only approves partial amount
+    vm.startPrank(USER);
+    ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
+    dsce.depositCollateral(weth, AMOUNT_COLLATERAL);
+    dsce.mintDsc(MINT_AMOUNT); // Has enough balance
+    dsc.approve(address(dsce), 50e18); // Only approve 50e18, not enough for full liquidation
+    vm.stopPrank();
+    
+    // Drop price to make liquidated user's health factor < 1
+    int256 ethUsdNewPrice = 2e8; // $2 (with 8 decimals)
+    MockV3Aggregator(ethUsdPriceFeed).updateAnswer(ethUsdNewPrice);
+    
+    // Verify user is liquidatable
+    uint256 liquidatedUserHealthFactor = dsce.getHealthFactor(liquidatedUser);
+    assert(liquidatedUserHealthFactor < PRECISION, "User should be liquidatable");
+    
+    // Attempt to liquidate full debt - should fail due to insufficient approval
+    vm.startPrank(USER);
+    vm.expectRevert(DSCEngine.DSCEngine__TransferFailed.selector);
+    dsce.liquidate(weth, liquidatedUser, MINT_AMOUNT); // Try to cover full 100e18 debt
+    vm.stopPrank();
+}
+
+Test logic explanation:
+testLiquidationFailsWhenLiquidatorHasInsufficientDscBalance:
+Liquidator mints only 50e18 DSC but tries to cover 100e18 debt
+Expects DSCEngine__TransferFailed because transferFrom fails due to insufficient balance
+testLiquidationFailsWhenLiquidatorHasNoApproval:
+Liquidator has enough DSC but doesn't approve the engine
+Expects DSCEngine__TransferFailed because transferFrom fails without approval
+testLiquidationFailsWhenLiquidatorHasPartialApproval:
+Liquidator has enough DSC but only approves 50e18
+Attempts to liquidate 100e18, which exceeds approval
+Expects DSCEngine__TransferFailed
+All three scenarios cause _burnDsc → transferFrom to fail, reverting with DSCEngine__TransferFailed. These cover the main cases where liquidation fails due to the liquidator's DSC balance or approval.
