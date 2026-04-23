@@ -120,28 +120,43 @@ contract DSCEngine is ReentrancyGuard {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //tokenCollateralAddres is the address of token to deposit as collateral
     //amountCollateral is the amount of collateral to deposit
-    function depositCollateral(
-        address tokenCollateralAddress,
-        uint256 amountCollateral
-    ) public moreThanZero(amountCollateral) isAllowedToken(tokenCollateralAddress) nonReentrant {
-        s_collateralDeposited[msg.sender][tokenCollateralAddress] += amountCollateral;
-        emit CollateralDeposited(msg.sender, tokenCollateralAddress, amountCollateral);
-        bool success = IERC20(tokenCollateralAddress).transferFrom(msg.sender, address(this), amountCollateral);
-        if (!success) {
-            revert DSCEngine__TransferFailed();
-        }
-    }
+  function depositCollateral(address tokenCollateralAddress, uint256 amountCollateral)   
+    public moreThanZero(amountCollateral) isAllowedToken(tokenCollateralAddress) nonReentrant {  
+    // Checks: Already done by modifiers  
+      
+    // Interaction: Transfer tokens first  
+    bool success = IERC20(tokenCollateralAddress).transferFrom(msg.sender, address(this), amountCollateral);  
+    if (!success) {  
+        revert DSCEngine__TransferFailed();  
+    }  
+      
+    // Effects: Update state after successful transfer  
+    s_collateralDeposited[msg.sender][tokenCollateralAddress] += amountCollateral;  
+    emit CollateralDeposited(msg.sender, tokenCollateralAddress, amountCollateral);  
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    function mintDsc(uint256 amountDscToMint) public moreThanZero(amountDscToMint) nonReentrant {
-        s_DSCMinted[msg.sender] += amountDscToMint;
-        //if mint too much($150DSC, $100ETH)
-        _revertIfHealthFactorIsBroken(msg.sender);
-        bool minted = i_dsc.mint(msg.sender, amountDscToMint);
-        if(!minted) {
-            revert DSCEngine__MintFailed();
-        }
-    }
+  function mintDsc(uint256 amountDscToMint) public moreThanZero(amountDscToMint) nonReentrant {  
+    // Checks: Validate health factor before any state changes  
+    uint256 currentDscMinted = s_DSCMinted[msg.sender];  
+    uint256 newTotalDscMinted = currentDscMinted + amountDscToMint;  
+      
+    // Temporarily calculate health factor with proposed new debt  
+    (uint256 totalDscMinted, uint256 collateralValueInUsd) = _getAccountInformation(msg.sender);  
+    uint256 proposedHealthFactor = _calculateHealthFactor(newTotalDscMinted, collateralValueInUsd);  
+    if(proposedHealthFactor < MIN_HEALTH_FACTOR) {  
+        revert DSCEngine__HealthFactorIsBroken(proposedHealthFactor);  
+    }  
+      
+    // Interaction: Mint tokens  
+    bool minted = i_dsc.mint(msg.sender, amountDscToMint);  
+    if(!minted) {  
+        revert DSCEngine__MintFailed();  
+    }  
+      
+    // Effects: Update state after successful mint  
+    s_DSCMinted[msg.sender] = newTotalDscMinted;  
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //redeem + burn DSC
