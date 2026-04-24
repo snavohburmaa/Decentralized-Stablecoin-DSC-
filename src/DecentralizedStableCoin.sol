@@ -25,7 +25,7 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
 
     function burn (uint256 _amount) public override onlyOwner {
         uint256 balance = balanceOf(msg.sender);
-        if(_amount <= 0) {
+        if(_amount == 0) {
             revert DecentralizedStableCoin__AmountMustBeMoreThanZero();
         }
         if(balance < _amount) {
@@ -38,10 +38,10 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
         if (_to == address(0)) {
             revert DecentralizedStableCoin__NotZeroAddress();
         }
-        if (_amount <= 0) {
+        if (_amount == 0) {
             revert DecentralizedStableCoin__AmountMustBeMoreThanZero();
         }
         _mint(_to, _amount);
         return true;
-    }   
+    }
 }
