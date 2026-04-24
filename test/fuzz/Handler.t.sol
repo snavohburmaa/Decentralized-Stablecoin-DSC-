@@ -22,10 +22,10 @@ contract Handler is Test {
     uint256 public timesMintIsCalled;
 
     uint256 MAX_DEPOSIT = type(uint96).max;
-    
+
     constructor(DSCEngine _dscEngine, DecentralizedStableCoin _dsc) {
         dsce = _dscEngine;
-        dsc = _dsc; 
+        dsc = _dsc;
 
         address[] memory collateraTokens = dsce.getCollateralTokens();
         weth = ERC20Mock(collateraTokens[0]);
@@ -50,15 +50,15 @@ contract Handler is Test {
     // Already minted = 200 DSC
     // Remaining mintable = 500 - 200 = 300 DSC
 
-    function MintDsc (uint256 amount) public {
+    function MintDsc(uint256 amount) public {
         (uint256 totalDscMinted, uint256 collateralValueInUsd) = dsce.getAccInfo(msg.sender);
         //if no collateral, cant mint
-        if(collateralValueInUsd == 0) {
+        if (collateralValueInUsd == 0) {
             return;
         }
 
-        int256 maxDscToMint = (int256(collateralValueInUsd) / 2 ) - int256(totalDscMinted);
-        if(maxDscToMint <= 0) {
+        int256 maxDscToMint = (int256(collateralValueInUsd) / 2) - int256(totalDscMinted);
+        if (maxDscToMint <= 0) {
             return;
         }
         amount = bound(amount, 1, uint256(maxDscToMint));
@@ -66,27 +66,26 @@ contract Handler is Test {
         dsce.mintDsc(amount);
         vm.stopPrank();
         timesMintIsCalled++; //check how many times 'mint' is called
-          
     }
 
     function redeemCollateral(uint256 collateralSeed, uint256 amountCollateral) public {
         ERC20Mock collateral = _getCollateralFromSeed(collateralSeed);
-        //DANGER!!! without maxCollateralToRedeem, 
+        //DANGER!!! without maxCollateralToRedeem,
         //MAX_DEPOSIT insted of maxCollateralToRedeem => will redeem more than they own
         uint256 maxCollateralToRedeem = dsce.getCollateralBalanceOfUser(msg.sender, address(collateral));
-        
-        if(maxCollateralToRedeem == 0) {
+
+        if (maxCollateralToRedeem == 0) {
             return;
         }
-        
-        // if broken, can't redeem price drop might have broken 
+
+        // if broken, can't redeem price drop might have broken
         uint256 healthFactor = dsce.getHealthFactor(msg.sender);
-        if(healthFactor < 1e18) {
+        if (healthFactor < 1e18) {
             return; // Health factor broken, can't redeem
         }
-        
+
         amountCollateral = bound(amountCollateral, 0, maxCollateralToRedeem);
-        if(amountCollateral == 0) {
+        if (amountCollateral == 0) {
             return;
         } //if amountCollateral is 0, don't redeem collateral  (out ka func m run)
         vm.startPrank(msg.sender);
@@ -98,28 +97,28 @@ contract Handler is Test {
         // Bound price to be at least 1 to avoid DSCEngine__InvalidPrice error
         // Price feeds should never be 0 or negative
         newPrice = uint96(bound(uint256(newPrice), 1, type(uint96).max));
-        
+
         // Get current state
         uint256 totalSupply = dsc.totalSupply();
         uint256 totalWethDeposited = IERC20(address(weth)).balanceOf(address(dsce));
         uint256 totalBtcDeposited = IERC20(address(wbtc)).balanceOf(address(dsce));
-        
+
         // Get current BTC value (unchanged by WETH price update)
         uint256 totalBtcValue = dsce.getUsdValue(address(wbtc), totalBtcDeposited);
-        
+
         // totalWethValue + totalBtcValue >= totalSupply
         // totalWethValue >= totalSupply - totalBtcValue
         uint256 minWethValueNeeded;
-        if(totalSupply > totalBtcValue) {
+        if (totalSupply > totalBtcValue) {
             minWethValueNeeded = totalSupply - totalBtcValue;
         } else {
             minWethValueNeeded = 0; // BTC value already covers total supply
         }
-        
+
         // Calculate minimum price needed: (price * 1e10 * amount) / 1e18 >= minWethValueNeeded
         // price >= (minWethValueNeeded * 1e18) / (1e10 * totalWethDeposited)
         uint256 minPrice;
-        if(totalWethDeposited > 0 && minWethValueNeeded > 0) {
+        if (totalWethDeposited > 0 && minWethValueNeeded > 0) {
             // Using constants, ADDITIONAL_FEED_PRECISION = 1e10, PRECISION = 1e18
             minPrice = (minWethValueNeeded * 1e18) / (1e10 * totalWethDeposited);
             // Add 1 to ensure we're above the minimum (rounding safety)
@@ -127,12 +126,12 @@ contract Handler is Test {
         } else {
             minPrice = 1; // No WETH deposited or no minimum needed
         }
-        
+
         // Bound new price to be at least the minimum required
-        if(uint256(newPrice) < minPrice) {
+        if (uint256(newPrice) < minPrice) {
             newPrice = uint96(minPrice);
         }
-        
+
         // Update price safe
         int256 newPriceInt = int256(uint256(newPrice));
         ethUsdPriceFeed.updateAnswer(newPriceInt);
@@ -140,7 +139,7 @@ contract Handler is Test {
 
     //helper function
     function _getCollateralFromSeed(uint256 collateralSeed) private view returns (ERC20Mock) {
-        if(collateralSeed % 2 == 0) {
+        if (collateralSeed % 2 == 0) {
             return weth;
         } else {
             return wbtc;

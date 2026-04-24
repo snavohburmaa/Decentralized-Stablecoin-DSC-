@@ -27,7 +27,7 @@ contract InvariantsTest is Test {
     function setUp() external {
         deployer = new DeployDSC();
         (dsc, dsce, config) = deployer.run();
-        (,, weth, wbtc, ) = config.activeNetworkConfig();
+        (,, weth, wbtc,) = config.activeNetworkConfig();
 
         // targetContract(address(dsce));
         //dont call redeemCollateral unless there is collateral to redeem

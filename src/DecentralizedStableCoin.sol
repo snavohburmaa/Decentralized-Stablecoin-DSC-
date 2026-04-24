@@ -7,7 +7,7 @@ pragma solidity ^0.8.19;
  * Collateral: exogenous (ETH & BTC)
  * Minting : Algorithmic
  * Relative Stability: Pegged to USD
- * 
+ *
  * This is the contract ment to be governed by DSCEngine
  * just ERC20 implementation of stablecoin system
  */
@@ -21,20 +21,20 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__BurnAmountMustBeLessThanBalance();
     error DecentralizedStableCoin__NotZeroAddress();
 
-    constructor() ERC20 ("DecentralizedStableCoin", "DSC") Ownable(msg.sender) {}
+    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(msg.sender) {}
 
-    function burn (uint256 _amount) public override onlyOwner {
+    function burn(uint256 _amount) public override onlyOwner {
         uint256 balance = balanceOf(msg.sender);
-        if(_amount == 0) {
+        if (_amount == 0) {
             revert DecentralizedStableCoin__AmountMustBeMoreThanZero();
         }
-        if(balance < _amount) {
+        if (balance < _amount) {
             revert DecentralizedStableCoin__BurnAmountMustBeLessThanBalance();
         }
         super.burn(_amount);
     }
 
-    function mint (address _to,uint256 _amount) external onlyOwner returns (bool) {
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
         if (_to == address(0)) {
             revert DecentralizedStableCoin__NotZeroAddress();
         }

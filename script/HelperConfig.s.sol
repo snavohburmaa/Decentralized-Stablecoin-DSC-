@@ -21,7 +21,7 @@ contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
 
     constructor() {
-        if(block.chainid == 11155111) {
+        if (block.chainid == 11155111) {
             activeNetworkConfig = getSepoliaNetworkConfig();
         } else {
             activeNetworkConfig = getOrCreateAnvilEthConfig();
@@ -31,7 +31,7 @@ contract HelperConfig is Script {
     function getSepoliaNetworkConfig() public view returns (NetworkConfig memory) {
         return NetworkConfig({
             wethUsdPriceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306,
-            wbtcUsdPriceFeed:0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43,
+            wbtcUsdPriceFeed: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43,
             weth: 0xd3417250FC735Cc762E8aD6317091a1ef54Ae5e3,
             wbtc: 0x0555E30da8f98308EdB960aa94C0Db47230d2B9c,
             deployerKey: vm.envUint("PRIVATE_KEY")
@@ -39,7 +39,7 @@ contract HelperConfig is Script {
     }
 
     function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
-        if(activeNetworkConfig.wethUsdPriceFeed != address(0)) {
+        if (activeNetworkConfig.wethUsdPriceFeed != address(0)) {
             return activeNetworkConfig;
         }
 
