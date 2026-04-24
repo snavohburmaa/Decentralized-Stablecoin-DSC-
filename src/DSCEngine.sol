@@ -35,6 +35,7 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__HealthFactorOk();
     error DSCEngine__HealthFactorNotImproved();
     error DSCEngine__InsufficientDscBalance();
+    error DSCEngine__DepositBelowMinimum(uint256 actualValue, uint256 minimumRequired);
 
     using OracleLib for AggregatorV3Interface;
 
@@ -42,9 +43,11 @@ contract DSCEngine is ReentrancyGuard {
 
     mapping(address token => address priceFeed) private s_priceFeeds; // token to priceFeed
     mapping(address user => mapping(address token => uint256 amount)) 
-        private s_collateralDeposited; // user to token to amount deposited
+    private s_collateralDeposited; // user to token to amount deposited
     mapping(address user => uint256 amountDscMinted) private s_DSCMinted; // user to amount DSC minted
     address[] private s_collateralTokens; // array of collateral tokens
+    address private immutable weth;  
+    address private immutable wbtc;
 
     DecentralizedStableCoin private immutable i_dsc;
     uint256 private constant ADDITIONAL_FEED_PRECISION = 1e10;
@@ -53,6 +56,10 @@ contract DSCEngine is ReentrancyGuard {
     uint256 private constant LIQUIDATION_PRECISION = 100;
     uint256 private constant MIN_HEALTH_FACTOR = 1e18;
     uint256 private constant LIQUIDATION_BONUS = 10; //10% bonus
+    // Minimum deposit amounts in USD value (18 decimals)  
+    uint256 private constant MIN_DEPOSIT_USD_WETH = 10e18;    // $10 minimum for wETH  
+    uint256 private constant MIN_DEPOSIT_USD_WBTC = 100e18;   // $100 minimum for wBTC  
+    uint256 private constant DEFAULT_MIN_DEPOSIT_USD = 10e18; // $10 default for other tokens
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Events
@@ -88,6 +95,22 @@ contract DSCEngine is ReentrancyGuard {
         }
         _;
     }
+    modifier meetsMinimumDeposit(address token, uint256 amount) {  
+        uint256 usdValue = getUsdValue(token, amount);  
+        uint256 minimumRequired;  
+        if (token == weth) {  
+            minimumRequired = MIN_DEPOSIT_USD_WETH;  
+        } else if (token == wbtc) {  
+            minimumRequired = MIN_DEPOSIT_USD_WBTC;  
+        } else {  
+            minimumRequired = DEFAULT_MIN_DEPOSIT_USD;  
+        }  
+      
+        if (usdValue < minimumRequired) {  
+            revert DSCEngine__DepositBelowMinimum(usdValue, minimumRequired);  
+        }  
+        _;  
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     constructor(
@@ -103,6 +126,15 @@ contract DSCEngine is ReentrancyGuard {
             s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];
             s_collateralTokens.push(tokenAddresses[i]);
         }
+        for (uint256 i = 0; i < tokenAddresses.length; i++) {  
+        s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];  
+        s_collateralTokens.push(tokenAddresses[i]);  
+          
+        // Store token addresses for minimum deposit checks  
+        if (i == 0) weth = tokenAddresses[i];  // Assuming weth is first  
+        if (i == 1) wbtc = tokenAddresses[i];  // Assuming wbtc is second  
+        }  
+      
         i_dsc = DecentralizedStableCoin(dscAddress);
     }
 
@@ -120,20 +152,18 @@ contract DSCEngine is ReentrancyGuard {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //tokenCollateralAddres is the address of token to deposit as collateral
     //amountCollateral is the amount of collateral to deposit
-  function depositCollateral(address tokenCollateralAddress, uint256 amountCollateral)   
-    public moreThanZero(amountCollateral) isAllowedToken(tokenCollateralAddress) nonReentrant {  
-    // Checks: Already done by modifiers  
-      
-    // Interaction: Transfer tokens first  
-    bool success = IERC20(tokenCollateralAddress).transferFrom(msg.sender, address(this), amountCollateral);  
-    if (!success) {  
-        revert DSCEngine__TransferFailed();  
-    }  
-      
-    // Effects: Update state after successful transfer  
-    s_collateralDeposited[msg.sender][tokenCollateralAddress] += amountCollateral;  
-    emit CollateralDeposited(msg.sender, tokenCollateralAddress, amountCollateral);  
-}
+
+    function depositCollateral(
+        address tokenCollateralAddress,
+        uint256 amountCollateral
+    ) moreThanZero(amountCollateral) isAllowedToken(tokenCollateralAddress) meetsMinimumDeposit(tokenCollateralAddress, amountCollateral) nonReentrant {
+        s_collateralDeposited[msg.sender][tokenCollateralAddress] += amountCollateral;
+        emit CollateralDeposited(msg.sender, tokenCollateralAddress, amountCollateral);
+        bool success = IERC20(tokenCollateralAddress).transferFrom(msg.sender, address(this), amountCollateral);
+        if (!success) {
+            revert DSCEngine__TransferFailed();
+        }
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
   function mintDsc(uint256 amountDscToMint) public moreThanZero(amountDscToMint) nonReentrant {  
